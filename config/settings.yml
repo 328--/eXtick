@@ -1,0 +1,13 @@
+defaults: &defaults
+
+development:
+  <<: *defaults
+  twitter:
+    consumer_key: <%= ENV["TWITTER_CS_KEY"] %>
+    consumer_secret: <%= ENV["TWITTER_CS_SEC"] %>
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
