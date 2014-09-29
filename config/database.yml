@@ -83,3 +83,8 @@ production:
   database: eXtick_production
   username: eXtick
   password: <%= ENV['EXTICK_DATABASE_PASSWORD'] %>
+
+test:
+  adapter: postgresql
+  database: travis_ci_test
+  username: postgres
