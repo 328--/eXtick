@@ -1,13 +1,14 @@
 class SessionController < ApplicationController
   def callback
     auth = request.env['omniauth.auth']
-    user = User.find_by_provider_and_uid(auth['provider'], auth['uid']) || User.create_with_omniauth(auth)
-    session[:user_id] = user.id
-    redirect_to root_path
+    session[:name] = auth['info']['nickname']
+    session[:url] = auth['info']['urls']
+    session[:twitter_token] = auth['credentials']['token']
+    redirect_to :controller => 'tickets'
   end
-
+  
   def destroy
-    session[:user_id] = nil
+    reset_session
     redirect_to root_path
   end
 end
