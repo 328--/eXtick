@@ -1,0 +1,8 @@
+%h1 Welcome#index
+%p Find me in app/views/welcome/index.html.haml
+
+- if session[:name]
+  = session[:name]
+  = link_to 'ログアウト', logout_path
+- else
+  = link_to 'ログイン', '/auth/twitter'
