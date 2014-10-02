@@ -1,4 +1,4 @@
-%h1 Listing tickets
+%h1 Search result
 
 %table
   %tr
@@ -20,11 +20,3 @@
       %td= link_to 'Edit', edit_ticket_path(ticket)
       %td= link_to 'Destroy', ticket, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
-
-= link_to 'New Ticket', new_ticket_path
-
-%br
-%br
-
-= render 'search_form'
