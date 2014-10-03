@@ -19,6 +19,8 @@ $ echo "export TWITTER_CS_SEC=xxxxxxxxxxxxxxxxxxxx" >> ~/.zshrc
 $ source ~/.zshrc
 $ cd eXtick
 $ bundle install
+$ rake db:create
+$ rake db:migrate
 $ rails server
 ```
 
