@@ -91,5 +91,5 @@ production:
 test:
   adapter: postgresql
   database: travis_ci_test
-  username: vagrant
+  username: postgres
   template: template0
