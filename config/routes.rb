@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :tickets
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -15,7 +13,14 @@ Rails.application.routes.draw do
   post '/callback', :to => 'session#callback'
   get '/logout' => 'session#destroy', :as => :logout
 
-  post 'search' => 'tickets#search'
+  resources :tickets do
+    member do
+    end
+
+    collection do
+      post 'search'
+    end
+  end
   
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
