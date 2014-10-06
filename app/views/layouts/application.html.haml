@@ -7,12 +7,31 @@
     = csrf_meta_tags
 
   %body
-    %div(class="navbar navbar-fixed-top navbar-inverse" role="navigation")
-      %ul.nav.pull-right
-        - if session[:name]
-          = session[:name]
-          = link_to 'ログアウト', logout_path
-        - else
-          = link_to 'ログイン', '/auth/twitter'
-
+    %div.navbar.navbar-fixed-top.navbar-inverse(role="navigation")
+      .navbar-inner
+        .container-fluid
+          .navbar-header
+            %a.navbar-brand(href="/") eXtick
+          %ul.nav.navbar-nav
+            %form.navbar-form(action="/tickets/search" method="get" role="search")
+              .form-group
+                %input.form-control(type="text" name="search" placeholder="Keyword")
+              %button.btn.btn-default(type="submit") Search
+          %ul.nav.navbar-nav.navbar-right
+            - if session[:name]
+              %li.dropdown
+                %a.dropdown-toggle(data-toggle="dropdown" href="#")
+                  #{session[:name]}
+                  .caret
+                %ul.dropdown-menu
+                  %li
+                    %a(href=logout_path) ログアウト
+            - else
+              %li.dropdown
+                %a.dropdown-toggle(data-toggle="dropdown" href="#")
+                  ログイン
+                  .caret
+                %ul.dropdown-menu
+                  %li
+                    %a(href="/auth/twitter") Twitter
   = yield
