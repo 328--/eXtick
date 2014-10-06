@@ -142,7 +142,7 @@ PLATFORMS
 
 DEPENDENCIES
   autoprefixer-rails
-  bootstrap-sass (~> 3.2.0)
+  bootstrap-sass
   coffee-rails (~> 4.0.0)
   haml-rails
   jbuilder (~> 2.0)
@@ -152,6 +152,7 @@ DEPENDENCIES
   pg
   rails (= 4.1.6)
   rails_12factor
+  sass
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   settingslogic
