@@ -7,11 +7,16 @@
     = csrf_meta_tags
 
   %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          %ul.nav.pull-left
+            = render 'search_form'
+          %ul.nav.pull-right
+            - if session[:name]
+              = session[:name]
+              = link_to 'ログアウト', logout_path
+            - else
+              = link_to 'ログイン', '/auth/twitter'
 
-    - if session[:name]
-      = session[:name]
-      = link_to 'ログアウト', logout_path
-    - else
-      = link_to 'ログイン', '/auth/twitter'
-
-    = yield
+  = yield
