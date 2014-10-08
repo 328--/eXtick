@@ -1,6 +1,20 @@
-%h1 Listing tickets
+.container
+  .page-header#start-page-header Usage
 
-%table
+.text-center
+  %button.btn.btn-primary.btn-xs
+    %a(href="/auth/twitter")
+      %font(color="#ffffff")
+        %i.fa.fa-twitter Twitterでログイン
+
+%br
+
+.text-center
+  = render 'search_form'
+
+.text-center
+  %h1 New tickets
+%table.table.table-bordered.table-striped(align="center")
   %tr
     %th Event name
     %th Datetime
@@ -22,9 +36,7 @@
 
 %br
 
-= link_to 'New Ticket', new_ticket_path
+-#= link_to 'New Ticket', new_ticket_path
 
 %br
 %br
-
-= render 'search_form'
