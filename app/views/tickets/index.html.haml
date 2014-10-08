@@ -18,28 +18,15 @@
     .col-xs-offset-1.col-xs-10
       .text-center
         = render 'search_form'
-      .text-center
-        %h1 New tickets
-        %table.table.table-bordered.table-striped(align="center")
-          %tr
-            %th Event name
-            %th Datetime
-            %th Place
-            %th Price
-            %th
-            %th
-            %th
-      
-          - @tickets.each do |ticket|
-            %tr
-              %td= ticket.event_name
-              %td= ticket.datetime
-              %td= ticket.place
-              %td= ticket.price
-              %td= link_to 'Show', ticket
-              %td= link_to 'Edit', edit_ticket_path(ticket)
-              %td= link_to 'Destroy', ticket, :method => :delete, :data => { :confirm => 'Are you sure?'}
 
+.container
+  .row
+    .col-xs-offset-1.col-xs-10
+      .text-center
+        #ajax_area
+          = render(:partial => 'search_result', :object => @searched_tickets)
+
+        
 %br
 
 -#= link_to 'New Ticket', new_ticket_path
