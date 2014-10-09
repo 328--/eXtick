@@ -16,7 +16,7 @@
           %ul.nav.navbar-nav
             %form.navbar-form(action="/tickets/search" method="get" role="search")
               .form-group
-                %input.form-control(type="text" name="search" placeholder="Keyword")
+                %input.form-control(type="text" name="search" placeholder="Enter keyword")
               %button.btn.btn-default(type="submit") Search
           %ul.nav.navbar-nav.navbar-right
             - if session[:name]

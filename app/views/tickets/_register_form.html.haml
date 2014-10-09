@@ -1,7 +1,7 @@
-%h1
-  Register new ticket
-.container.well
-  .form-horizontal
+.container
+  %h1 Register new ticket
+
+  .form-horizontal.well
     = form_for @ticket do |f|
       - if @ticket.errors.any?
         #error_explanation
