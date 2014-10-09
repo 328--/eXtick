@@ -2,3 +2,18 @@
   = render 'logged_in'
 - else
   = render 'logged_out'
+
+%br
+
+.container
+  .row
+    .col-xs-offset-1.col-xs-10
+      .text-center
+        = render 'search_form'
+
+.container
+  .row
+    .col-xs-offset-1.col-xs-10
+      .text-center
+        #ajax_area
+          = render(:partial => 'search_result', :object => @searched_tickets)

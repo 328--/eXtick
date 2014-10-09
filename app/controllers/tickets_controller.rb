@@ -64,7 +64,11 @@ class TicketsController < ApplicationController
   end
 
   def search
-    @tickets = Ticket.where('event_name like ?', "%"+params[:search]+"%")
+    @searched_tickets = Ticket.where('event_name like ?', "%"+params[:search_item]+"%")
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   private
