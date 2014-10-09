@@ -1,0 +1,23 @@
+.container
+  .row
+    .col-xs-12
+      %h1 Search result
+      %table.table.table-bordered.table-striped(align="center")
+        %tr
+          %th Event name
+          %th Datetime
+          %th Place
+          %th Price
+          %th
+          %th
+          %th
+          
+        - @searched_tickets.each do |ticket|
+          %tr
+            %td= ticket.event_name
+            %td= ticket.datetime
+            %td= ticket.place
+            %td= ticket.price
+            %td= link_to 'Show', ticket
+            %td= link_to 'Edit', edit_ticket_path(ticket)
+            %td= link_to 'Destroy', ticket, :method => :delete, :data => { :confirm => 'Are you sure?' }
