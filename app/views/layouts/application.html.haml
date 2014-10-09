@@ -14,9 +14,9 @@
           .navbar-header
             %a.navbar-brand(href="/") eXtick
           %ul.nav.navbar-nav
-            %form.navbar-form(action="/tickets/search" method="get" role="search")
+            %form.navbar-form(action="/tickets/search" method="get" data-remote="true" role="search")
               .form-group
-                %input.form-control(type="text" name="search" placeholder="Enter keyword")
+                %input.form-control#search_item(name="search_item" type="text" placeholder="Enter keyword")
               %button.btn.btn-default(type="submit") Search
           %ul.nav.navbar-nav.navbar-right
             - if session[:name]
