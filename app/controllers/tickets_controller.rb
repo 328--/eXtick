@@ -88,7 +88,7 @@ class TicketsController < ApplicationController
     end
 
     def set_tag
-      splits_tag = ticket_params[:tag_ids].split(",")
+      splits_tag = ticket_params[:tag_ids].to_s.split(",")
       tag_name = []
 	splits_tag.each{|n|
 	  tag_name << Tag.new(:name => n)
