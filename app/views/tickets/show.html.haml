@@ -12,6 +12,9 @@
 %p
   %b Price:
   = @ticket.price
+%p
+  %b Category:
+  = Category.find(@ticket.category_id).name
 
 = link_to 'Edit', edit_ticket_path(@ticket)
 \|
