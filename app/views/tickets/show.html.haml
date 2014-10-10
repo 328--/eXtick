@@ -15,6 +15,10 @@
 %p
   %b Category:
   = Category.find(@ticket.category_id).name
+%p
+  %b Tag:
+  = @ticket.tag_ids
+
 
 = link_to 'Edit', edit_ticket_path(@ticket)
 \|

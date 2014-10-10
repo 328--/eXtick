@@ -27,7 +27,7 @@ class TicketsController < ApplicationController
   # POST /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
-    @ticket[:tag_ids] = nil
+    @ticket[:tag_ids] = @tags
     puts ticket_params
     
     respond_to do |format|
@@ -45,7 +45,9 @@ class TicketsController < ApplicationController
   # PATCH/PUT /tickets/1.json
   def update
     respond_to do |format|
-      if @ticket.update(ticket_params)
+    ticket_formated = ticket_params
+    ticket_formated["tag_ids"] = @tags
+      if @ticket.update(ticket_formated)
         format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
         format.json { render :show, status: :ok, location: @ticket }
       else
@@ -77,6 +79,7 @@ class TicketsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
       @ticket = Ticket.find(params[:id])
+      @ticket[:tag_ids] = get_tag_name(@ticket.tag_ids)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -86,11 +89,31 @@ class TicketsController < ApplicationController
 
     def set_tag
       splits_tag = ticket_params[:tag_ids].split(",")
-      tags = []
+      tag_name = []
 	splits_tag.each{|n|
-	  tags << Tag.new(:name => n)
+	  tag_name << Tag.new(:name => n)
 	}	
-      Tag.import tags
+      Tag.import tag_name
+      tag_text = Tag.arel_table[:name]
+      tag_sel = tag_text.matches("#{splits_tag[0]}")
+      for i in 1...splits_tag.length
+        tag_sel = tag_sel.or(tag_text.matches("#{splits_tag[i]}"))
+      end
+      @tags = []
+      Tag.where(tag_sel).select(:id).each{|t|
+        @tags << t.id
+      }	
+    end
+
+    def get_tag_name(tags)
+      tag_names = "" 
+      if !tags.blank?
+        Tag.find(tags).each{|t|
+          tag_names << "#{t.name},"
+        }
+      end
+
+      return tag_names
     end
 
 end
