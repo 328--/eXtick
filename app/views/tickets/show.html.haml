@@ -14,7 +14,8 @@
   = @ticket.price
 %p
   %b Category:
-  = Category.find(@ticket.category_id).name
+  - if !@ticket.category_id.nil?
+    = Category.find(@ticket.category_id).name
 %p
   %b Tag:
   = @ticket.tag_ids
