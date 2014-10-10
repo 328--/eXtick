@@ -20,7 +20,7 @@
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label :datatime, class: "control-label"
+            = f.label :datetime, class: "control-label"
           .col-xs-6
             = f.datetime_select :datetime, class: "form-control"
 
@@ -44,6 +44,13 @@
             = f.label :category, class: "control-label"
           .col-xs-6
             = f.collection_select :category_id, Category.all, :id, :name, class: "form-control"
+
+      .form-group
+        .field
+          .col-xs-offset-2.col-xs-2
+            = f.label :tag, class: "control-label"
+          .col-xs-6
+            = f.text_field :tag_ids, class: "form-control", placeholder: "Enter place"
 
       .form-group
         .col-xs-offset-10
