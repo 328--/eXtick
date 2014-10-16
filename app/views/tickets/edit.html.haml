@@ -1,5 +1,5 @@
-= render 'register_form', title: "Editing Ticket"
+= render("register_form", title: "Editing Ticket")
 
-= link_to 'Show', @ticket
+= link_to("Show", controller: "tickets", action: "show", id: @ticket)
 \|
-= link_to 'Back', tickets_path
+= link_to("Back", tickets_path)

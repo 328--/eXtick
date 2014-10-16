@@ -1,7 +1,4 @@
 .text-center
-  = form_tag("/tickets/search", method: "get", :remote => true) do
-    = text_field_tag :search_item, params[:search_item]
-    = submit_tag "Search", :name => nil
-
-#ajax_area
-  = render(:partial => 'search_result', :object => @searched_tickets)       
+  = form_tag("/tickets/search", method: "get", remote: true) do
+    = text_field_tag(:search_item, params[:search_item])
+    = submit_tag("Search", name: nil)

@@ -1,4 +1,9 @@
 - if session[:name]
-  = render 'logged_in'
+  = render(partial: "register_form", locals: {title: "Register New Ticket"})
 - else
-  = render 'logged_out'
+  = render(partial: "oauth")
+
+= render(partial: "search_form")
+
+#ajax_area
+  = render(partial: "listing_tickets", locals: {tickets: @tickets, title: "New Tichkets"})
