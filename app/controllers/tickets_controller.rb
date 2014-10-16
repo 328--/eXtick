@@ -68,7 +68,11 @@ class TicketsController < ApplicationController
   end
 
   def search
-    @searched_tickets = Ticket.where('event_name like ?', "%"+params[:search_item]+"%")
+    event_name = params[:event_name]
+    category_id = params[:category][:name]
+    tag_ids = get_tag_id(params[:tags])
+
+    @searched_tickets = Ticket.where('event_name like ?', "%" + event_name + "%")
     respond_to do |format|
       format.html
       format.js
@@ -103,6 +107,16 @@ class TicketsController < ApplicationController
       Tag.where(tag_sel).select(:id).each{|t|
         @tags << t.id
       }	
+    end
+
+    def get_tag_id(tags)
+      splits_tag = tags.to_s.split(",")
+      tag_ids = []
+      splits_tag.each{|n|
+        tag_ids << Tag.where("name like ?", n).select(:id)
+      }	
+
+      return tag_ids
     end
 
     def get_tag_name(tags)
