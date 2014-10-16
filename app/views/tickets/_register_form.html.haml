@@ -1,8 +1,7 @@
 .container
-  %h1 Register new ticket
-
+  %h1= title
   .form-horizontal.well
-    = form_for @ticket do |f|
+    = form_for(@ticket) do |f|
       - if @ticket.errors.any?
         #error_explanation
           %h2= "#{pluralize(@ticket.errors.count, "error")} prohibited this ticket from being saved:"
@@ -13,48 +12,48 @@
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label :event_name, class: "control-label"
+            = f.label("公演名", class: "control-label")
           .col-xs-6
-            = f.text_field :event_name, class: "form-control", placeholder: "Enter event name"
+            = f.text_field(:event_name, class: "form-control", placeholder: "Enter event name")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label :datetime, class: "control-label"
+            = f.label("開催日時", class: "control-label")
           .col-xs-6
-            = f.datetime_select :datetime, class: "form-control"
+            = f.datetime_select(:datetime, class: "form-control", add_month_numbers: true)
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label :place, class: "control-label"
+            = f.label("開催場所", class: "control-label")
           .col-xs-6
-            = f.text_field :place, class: "form-control", placeholder: "Enter place"
+            = f.text_field(:place, class: "form-control", placeholder: "Enter place")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label :price, class: "control-label"
+            = f.label("料金", class: "control-label")
           .col-xs-6
-            = f.number_field :price, class: "form-control", placeholder: "Enter price"
+            = f.number_field(:price, class: "form-control", placeholder: "Enter price")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label :category, class: "control-label"
+            = f.label("カテゴリー", class: "control-label")
           .col-xs-6
-            = f.collection_select :category_id, Category.all, :id, :name, class: "form-control"
+            = f.collection_select(:category_id, Category.all, :id, :name, class: "form-control")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label :tag, class: "control-label"
+            = f.label("タグ", class: "control-label")
           .col-xs-6
-            = f.text_field :tag_ids, class: "form-control", placeholder: "Enter place"
+            = f.text_field(:tag_ids, class: "form-control", placeholder: "tag1,tag2,...")
 
       .form-group
         .col-xs-offset-10
           .actions
-            = f.submit 'Register', class:"btn btn-default"
-      - f.label :twitter_token
-      = f.hidden_field :twitter_token, value: session[:twitter_token]
+            = f.submit("Register", class: "btn btn-default")
+      - f.label(:twitter_token)
+      = f.hidden_field(:twitter_token, value: session[:twitter_token])

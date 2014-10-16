@@ -1,32 +1,30 @@
+<<<<<<< HEAD
 .container
   %h1 Search
   .form-horizontal.well
-    = form_tag("/tickets/search", method: "get", :remote => true) do
+    = form_tag("/tickets/search", method: "get", remote: true) do
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = label_tag :event_name, "Event name"
+            = label_tag(:event_name, "Event name")
           .col-xs-6
-            = text_field_tag :event_name, params[:event_name] 
+            = text_field_tag(:event_name, params[:event_name])
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = label_tag :category, "Category"
+            = label_tag(:category, "Category")
           .col-xs-6
-            = collection_select :category, :name, Category.all, :id, :name, prompt: "Select category"
+            = collection_select(:category, :name, Category.all, :id, :name, prompt: "Select category")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = label_tag :tags, "Tag"
+            = label_tag(:tags, "Tag")
           .col-xs-6
-            = text_field_tag :tags, params[:tags]
+            = text_field_tag(:tags, params[:tags])
 
       .form-group
         .col-xs-offset-10
           .actions
-            = submit_tag "Search", :name => nil
-    
-#ajax_area
-  = render(:partial => 'search_result', :object => @searched_tickets)
+            = submit_tag("Search", name: nil)
