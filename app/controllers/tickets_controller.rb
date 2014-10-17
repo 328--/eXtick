@@ -41,6 +41,11 @@ class TicketsController < ApplicationController
     end
   end
 
+  # GET /tickets/myticket
+  def myticket
+    @tickets = Ticket.all.order("created_at DESC")
+  end
+
   # PATCH/PUT /tickets/1
   # PATCH/PUT /tickets/1.json
   def update

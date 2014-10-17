@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   get '/callback', :to => 'session#callback'
   post '/callback', :to => 'session#callback'
   get '/logout' => 'session#destroy', :as => :logout
-
+  get '/user/myticket'
+  
   resources :tickets do
     member do
     end

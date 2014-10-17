@@ -26,6 +26,9 @@
                   .caret
                 %ul.dropdown-menu
                   %li
+                    -#= link_to("Registered Tickets", controller: "tickets", action: "myticket")
+                    %a(href=user_myticket_path) Registered Tickets
+                  %li
                     %a(href=logout_path) ログアウト
             - else
               %li.dropdown
