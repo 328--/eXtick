@@ -20,6 +20,9 @@
   %b Tag:
   = @ticket.tag_ids
 
+%p
+  %b Note:
+  = simple_format(@ticket.note)
 
 = link_to 'Edit', edit_ticket_path(@ticket)
 \|

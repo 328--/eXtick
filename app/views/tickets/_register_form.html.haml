@@ -52,6 +52,13 @@
             = f.text_field(:tag_ids, class: "form-control", placeholder: "tag1,tag2,...")
 
       .form-group
+        .field
+          .col-xs-offset-2.col-xs-2
+            = f.label("備考", class: "control-label")
+          .col-xs-6
+            = f.text_area(:note, class: "form-control", placeholder: "Enter some informations")
+
+      .form-group
         .col-xs-offset-10
           .actions
             = f.submit("Register", class: "btn btn-default")
