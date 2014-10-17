@@ -73,7 +73,34 @@ class TicketsController < ApplicationController
   end
 
   def search
-    @searched_tickets = Ticket.where('event_name like ?', "%"+params[:search_item]+"%")
+    event_name = params[:event_name]
+    category_id = params[:category][:name]
+    tag_ids = get_tag_id(params[:tags])
+
+    event_name_condition = nil
+    category_id_condition = nil
+    tag_ids_condition = nil
+
+    if !event_name.blank?
+      event_name_condition = Ticket.arel_table[:event_name].matches("%#{event_name}%")
+    end
+    if  !category_id.blank?
+      category_id_condition = Ticket.arel_table[:category_id].eq(category_id)
+    end
+    if !tag_ids.blank?
+      tag_ids_condition = Ticket.arel_table[:tag_ids].matches("%- #{tag_ids[0]}\n%")
+      for i in 1...tag_ids.length
+        tag_ids_condition = tag_ids_condition.or(Ticket.arel_table[:tag_ids].matches("%- #{tag_ids[i]}\n%"))
+      end
+    end
+
+    event_name_group = Ticket.arel_table.grouping(event_name_condition)
+    category_id_group = Ticket.arel_table.grouping(category_id_condition)
+    tag_id_group = Ticket.arel_table.grouping(tag_ids_condition)
+
+    ticket_sql = event_name_group.or(category_id_group).or(tag_id_group)
+    @searched_tickets = Ticket.where(ticket_sql).order("created_at DESC")
+
     respond_to do |format|
       format.html
       format.js
@@ -108,6 +135,21 @@ class TicketsController < ApplicationController
       Tag.where(tag_sel).select(:id).each{|t|
         @tags << t.id
       }	
+    end
+
+    def get_tag_id(tags)
+      splits_tag = tags.to_s.split(",")
+      tag_text = Tag.arel_table[:name]
+      tag_sel = tag_text.matches("#{splits_tag[0]}")
+      for i in 1...splits_tag.length
+        tag_sel = tag_sel.or(tag_text.matches("#{splits_tag[i]}"))
+      end
+      tag_ids = []
+      Tag.where(tag_sel).select(:id).each{|t|
+        tag_ids << t.id.to_s
+      }
+
+      return tag_ids
     end
 
     def get_tag_name(tags)
