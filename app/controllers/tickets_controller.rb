@@ -111,10 +111,15 @@ class TicketsController < ApplicationController
 
     def get_tag_id(tags)
       splits_tag = tags.to_s.split(",")
+      tag_text = Tag.arel_table[:name]
+      tag_sel = tag_text.matches("#{splits_tag[0]}")
+      for i in 1...splits_tag.length
+        tag_sel = tag_sel.or(tag_text.matches("#{splits_tag[i]}"))
+      end
       tag_ids = []
-      splits_tag.each{|n|
-        tag_ids << Tag.where("name like ?", n).select(:id)
-      }	
+      Tag.where(tag_sel).select(:id).each{|t|
+        tag_ids << t.id
+      }
 
       return tag_ids
     end
