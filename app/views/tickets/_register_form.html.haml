@@ -63,4 +63,6 @@
           .actions
             = f.submit("Register", class: "btn btn-default")
 
-      = f.hidden_field(:user_id, value: User.find_by(uid: session[:uid]).id)
+      - user = User.find_by(uid: session[:uid])
+      - if user != nil
+        = f.hidden_field(:user_id, value: user.id)
