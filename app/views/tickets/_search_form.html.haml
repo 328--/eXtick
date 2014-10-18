@@ -5,25 +5,25 @@
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = label_tag(:event_name, "Event name")
+            = label_tag(:event_name, "Event name", class: "control-label")
           .col-xs-6
-            = text_field_tag(:event_name, params[:event_name])
+            = text_field_tag(:event_name, params[:event_name], class: "form-control")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = label_tag(:category, "Category")
+            = label_tag(:category, "Category", class: "control-label")
           .col-xs-6
-            = collection_select(:category, :name, Category.all, :id, :name, prompt: "Select category")
+            = collection_select(:category, :name, Category.all, :id, :name, prompt: "Select category", class: "form_control")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = label_tag(:tags, "Tag")
+            = label_tag(:tags, "Tag", class: "control-label")
           .col-xs-6
-            = text_field_tag(:tags, params[:tags])
+            = text_field_tag(:tags, params[:tags], class: "form-control")
 
       .form-group
         .col-xs-offset-10
           .actions
-            = submit_tag("Search", name: nil)
+            = submit_tag("Search", name: nil, class: "btn btn-default")
