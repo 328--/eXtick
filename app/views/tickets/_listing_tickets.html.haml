@@ -21,7 +21,9 @@
               - screen_name = owner.screen_name
               - message = "@#{screen_name} このチケット欲しいです！  https://extick.herokuapp.com/tickets/#{ticket.id}"
             %td
-              %a(href="#Modal#{ticket.id}" data-toggle="modal") mention to @#{screen_name}
+              %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal")
+                %font(color="#ffffff")
+                  %i.fa.fa-twitter to @#{screen_name}
             .modal.fade(id="Modal#{ticket.id}"tabindex="-1" data-toggle="modal" aria-hidden="true")
               .modal-dialog.modal-lg
                 .modal-content
@@ -38,7 +40,7 @@
                     .modal-body メッセージを送るにはログインが必要です。
                     .modal-footer
                       %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-                      %a.btn.btn-primary.btn-xs(href="/auth/twitter" role="button")
+                      %a.btn.btn-primary(href="/auth/twitter" role="button")
                         %font(color="#ffffff")
                           %i.fa.fa-twitter Twitterでログイン
 
