@@ -12,56 +12,56 @@
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label("公演名", class: "control-label")
+            = f.label(t('event_name'), class: "control-label")
           .col-xs-6
             = f.text_field(:event_name, class: "form-control", placeholder: "Enter event name")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label("開催日時", class: "control-label")
+            = f.label(t('datetime'), class: "control-label")
           .col-xs-6
             = f.datetime_select(:datetime, class: "form-control", use_month_numbers: true)
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label("開催場所", class: "control-label")
+            = f.label(t('place'), class: "control-label")
           .col-xs-6
             = f.text_field(:place, class: "form-control", placeholder: "Enter place")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label("料金", class: "control-label")
+            = f.label(t('price'), class: "control-label")
           .col-xs-6
             = f.number_field(:price, class: "form-control", placeholder: "Enter price")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label("カテゴリー", class: "control-label")
+            = f.label(t('category'), class: "control-label")
           .col-xs-6
             = f.collection_select(:category_id, Category.all, :id, :name, class: "form-control")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label("タグ", class: "control-label")
+            = f.label(t('tag'), class: "control-label")
           .col-xs-6
             = f.text_field(:tag_ids, class: "form-control", placeholder: "tag1,tag2,...")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = f.label("備考", class: "control-label")
+            = f.label(t('note'), class: "control-label")
           .col-xs-6
             = f.text_area(:note, class: "form-control", placeholder: "Enter some informations")
 
       .form-group
         .col-xs-offset-10
           .actions
-            = f.submit("Register", class: "btn btn-default")
+            = f.submit(t('register'), class: "btn btn-default")
 
       - user = User.find_by(uid: session[:uid])
       - if user != nil

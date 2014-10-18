@@ -20,10 +20,27 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 ja:
-  hello: "こんにちは、世界"
   date:
     order:
     - :year
     - :month
     - :day
   event_name: "イベント名"
+  datetime: "開催日時"
+  place: "開催場所"
+  price: "料金"
+  category: "カテゴリー"
+  tag: "タグ"
+  note: "備考"
+  contact: "連絡先"
+  register: "登録"
+  login_twitter: "Twitterでログイン"
+  search: "検索"
+  edit: "編集"
+  back: "戻る"
+  show: "表示"
+  register_new_ticket: "新しいチケットを登録する"
+  search_ticket: "チケット検索"
+  editing_ticket: "チケットの編集"
+  search_result: "検索結果"
+  new_tickets: "新着チケット"

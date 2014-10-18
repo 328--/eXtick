@@ -1,9 +1,9 @@
 - if session[:name]
-  = render(partial: "register_form", locals: {title: "Register New Ticket"})
+  = render(partial: "register_form", locals: {title: t('register_new_ticket')})
 - else
   = render(partial: "oauth")
 
 = render(partial: "search_form")
 
 #ajax_area
-  = render(partial: "listing_tickets", locals: {tickets: @tickets, title: "New Tichkets"})
+  = render(partial: "listing_tickets", locals: {tickets: @tickets, title: t('new_tickets')})

@@ -1,29 +1,29 @@
 .container
-  %h1 Search
+  %h1= t('search_ticket')
   .form-horizontal.well
     = form_tag("/tickets/search", method: "get", remote: true) do
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = label_tag(:event_name, "Event name", class: "control-label")
+            = label_tag(:event_name, t('event_name'), class: "control-label")
           .col-xs-6
             = text_field_tag(:event_name, params[:event_name], class: "form-control")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = label_tag(:category, "Category", class: "control-label")
+            = label_tag(:category, t('category'), class: "control-label")
           .col-xs-6
             = collection_select(:category, :name, Category.all, :id, :name, prompt: "Select category", class: "form_control")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
-            = label_tag(:tags, "Tag", class: "control-label")
+            = label_tag(:tags, t('tag'), class: "control-label")
           .col-xs-6
             = text_field_tag(:tags, params[:tags], class: "form-control")
 
       .form-group
         .col-xs-offset-10
           .actions
-            = submit_tag("Search", name: nil, class: "btn btn-default")
+            = submit_tag(t('search'), name: nil, class: "btn btn-default")

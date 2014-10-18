@@ -5,10 +5,10 @@
       %table.table.table-bordered.table-striped(align="center")
         %tr
           %th= t('event_name')
-          %th 開催日時
-          %th 開催場所
-          %th 料金
-          %th Contact
+          %th= t('datetime')
+          %th= t('place')
+          %th= t('price')
+          %th= t('contact')
 
         - tickets.each do |ticket|
           %tr
@@ -45,7 +45,7 @@
                       %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
                       %a.btn.btn-primary.btn-xs(href="/auth/twitter" role="button")
                         %font(color="#ffffff")
-                          %i.fa.fa-twitter Twitterでログイン
+                          %i.fa.fa-twitter= t('login_twitter')
 
             -# %td= link_to('Show', controller: "tickets", action: "show", id: ticket)
             -# %td= link_to('Edit', controller: "tickets", action: "edit", id: ticket)

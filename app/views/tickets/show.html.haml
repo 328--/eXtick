@@ -1,29 +1,29 @@
 %p#notice= notice
 
 %p
-  %b Event name:
+  %b= "#{t('event_name')}:"
   = @ticket.event_name
 %p
-  %b Datetime:
+  %b= "#{t('datetime')}:"
   = @ticket.datetime
 %p
-  %b Place:
+  %b= "#{t('place')}:"
   = @ticket.place
 %p
-  %b Price:
+  %b= "#{t('price')}:"
   = @ticket.price
 %p
-  %b Category:
+  %b= "#{t('category')}:"
   - if !@ticket.category_id.nil?
     = Category.find(@ticket.category_id).name
 %p
-  %b Tag:
+  %b= "#{t('tag')}:"
   = @ticket.tag_ids
 
 %p
-  %b Note:
+  %b= "#{t('note')}:"
   = simple_format(@ticket.note)
 
-= link_to 'Edit', edit_ticket_path(@ticket)
+= link_to t('edit'), edit_ticket_path(@ticket)
 \|
-= link_to 'Back', tickets_path
+= link_to t('back'), tickets_path
