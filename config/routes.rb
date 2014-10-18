@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post '/callback', :to => 'session#callback'
   get '/logout' => 'session#destroy', :as => :logout
   get '/user/myticket'
+  post '/tweet/update'
   
   resources :tickets do
     member do

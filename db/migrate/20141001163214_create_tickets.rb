@@ -5,7 +5,6 @@ class CreateTickets < ActiveRecord::Migration
       t.datetime :datetime
       t.string :place
       t.integer :price
-      t.string :twitter_token
 
       t.timestamps
     end

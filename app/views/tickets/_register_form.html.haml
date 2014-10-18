@@ -62,5 +62,5 @@
         .col-xs-offset-10
           .actions
             = f.submit("Register", class: "btn btn-default")
-      - f.label(:twitter_token)
-      = f.hidden_field(:twitter_token, value: session[:twitter_token])
+
+      = f.hidden_field(:user_id, value: User.find_by(uid: session[:uid]).id)

@@ -8,6 +8,7 @@
           %th 開催日時
           %th 開催場所
           %th 料金
+          %th Contact
           
         - tickets.each do |ticket|
           %tr
@@ -15,6 +16,22 @@
             %td= ticket.datetime
             %td= ticket.place
             %td= ticket.price
+            - owner = User.find_by(id: ticket.user_id)
+            %td
+              %a(href="#Modal#{ticket.id}" data-toggle="modal") mention to @#{owner.screen_name}
+            .modal.fade(id="Modal#{ticket.id}"tabindex="-1" data-toggle="modal" aria-hidden="true")
+              .modal-dialog.modal-lg
+                .modal-content
+                  .modal-header
+                    %button.close(type="button" data-dismiss="modal" aria-hidden="true")x
+                    %h4.modal-title Twitter
+                  .modal-body
+                    = form_tag(controller: "tweet", action: "update") do
+                      = text_area_tag("message", "@#{owner.screen_name} このチケット欲しいです！  https://extick.herokuapp.com/tickets/#{ticket.id}",  maxlength: "140")
+                      .modal-footer
+                        %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
+                        = submit_tag("Tweet", class: "btn.btn-primary")
+
             -# %td= link_to('Show', controller: "tickets", action: "show", id: ticket)
             -# %td= link_to('Edit', controller: "tickets", action: "edit", id: ticket)
             -# %td= link_to 'Destroy', ticket, :method => :delete, :data => { :confirm => 'Are you sure?'}

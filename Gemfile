@@ -43,6 +43,8 @@ ruby '2.1.2'
 
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'twitter'
+
 gem 'settingslogic'
 gem 'haml-rails'
 
