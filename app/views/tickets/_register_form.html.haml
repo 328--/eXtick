@@ -57,11 +57,9 @@
             = f.label(t('note'), class: "control-label")
           .col-xs-6
             = f.text_area(:note, class: "form-control", placeholder: "Enter some informations")
-
-      .form-group
-        .col-xs-offset-10
-          .actions
-            = f.submit(t('register'), class: "btn btn-default")
+          .col-xs-2
+            .actions
+              = f.submit(t('register'), class: "btn btn-default")
 
       - user = User.find_by(uid: session[:uid])
       - if user != nil

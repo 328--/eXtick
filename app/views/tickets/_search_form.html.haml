@@ -22,8 +22,6 @@
             = label_tag(:tags, t('tag'), class: "control-label")
           .col-xs-6
             = text_field_tag(:tags, params[:tags], class: "form-control")
-
-      .form-group
-        .col-xs-offset-10
-          .actions
-            = submit_tag(t('search'), name: nil, class: "btn btn-default")
+          .col-xs-2
+            .actions
+              = submit_tag(t('search'), name: nil, class: "btn btn-default")
