@@ -20,4 +20,27 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  date:
+    order:
+    - :year
+    - :month
+    - :day
+  event_name: "Event Name"
+  datetime: "Event Date"
+  place: "Place"
+  price: "Price"
+  category: "Category"
+  tag: "Tag"
+  note: "Note"
+  contact: "Contact"
+  register: "Register"
+  login_twitter: "login with Twitter"
+  search: "Search"
+  edit: "Edit"
+  back: "Back"
+  show: "Show"
+  register_new_ticket: "Register New Ticket"
+  search_ticket: "Search Tickets"
+  editing_ticket: "Editing Ticket"
+  search_result: "Search Result"
+  new_tickets: "New Tickets"
