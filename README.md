@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/328--/eXtick.svg?branch=master)](https://travis-ci.org/328--/eXtick)
 
 - ユーザ間でのチケット交換・販売サービスを提供するwebアプリケーション
+- [Elevator-pitch](https://github.com/328--/eXtick/wiki/elevator-pitch)
 
 ## demo
 
