@@ -74,7 +74,7 @@ class TicketsController < ApplicationController
 
   def search
     event_name = params[:event_name]
-    category_id = params[:category][:name]
+    category_id = params[:category][:name] if params[:category].present?
     tag_ids = get_tag_id(params[:tags])
 
     event_name_condition = nil
