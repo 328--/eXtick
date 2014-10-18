@@ -9,7 +9,7 @@
           %th 開催場所
           %th 料金
           %th Contact
-          
+
         - tickets.each do |ticket|
           %tr
             %td= link_to(ticket.event_name, controller: "tickets", action: "show", id: ticket)
@@ -26,15 +26,26 @@
             .modal.fade(id="Modal#{ticket.id}"tabindex="-1" data-toggle="modal" aria-hidden="true")
               .modal-dialog.modal-lg
                 .modal-content
-                  .modal-header
-                    %button.close(type="button" data-dismiss="modal" aria-hidden="true")x
-                    %h4.modal-title Twitter
-                  .modal-body
-                    = form_tag(controller: "tweet", action: "update") do
-                      = text_area_tag("message", "@#{screen_name} このチケット欲しいです！  https://extick.herokuapp.com/tickets/#{ticket.id}",  maxlength: "140")
-                      .modal-footer
-                        %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-                        = submit_tag("Tweet", class: "btn.btn-primary")
+                  - if session[:name]
+                    .modal-header
+                      %button.close(type="button" data-dismiss="modal" aria-hidden="true") x
+                      %h4.modal-title Twitter
+                      .modal-body
+                        = form_tag(controller: "tweet", action: "update") do
+                          = text_area_tag("message", "@#{screen_name} このチケット欲しいです！  https://extick.herokuapp.com/tickets/#{ticket.id}",  maxlength: "140")
+                          .modal-footer
+                            %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
+                            = submit_tag("Tweet", class: "btn.btn-primary")
+                  - else
+                    .modal-header
+                      %button.close(type="button" data-dismiss="modal" aria-hidden="true") x
+                      %h4.modal-title
+                    .modal-body メッセージを送るにはログインが必要です。
+                    .modal-footer
+                      %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
+                      %a.btn.btn-primary.btn-xs(href="/auth/twitter" role="button")
+                        %font(color="#ffffff")
+                          %i.fa.fa-twitter Twitterでログイン
 
             -# %td= link_to('Show', controller: "tickets", action: "show", id: ticket)
             -# %td= link_to('Edit', controller: "tickets", action: "edit", id: ticket)
