@@ -44,3 +44,5 @@ ja:
   editing_ticket: "チケットの編集"
   search_result: "検索結果"
   new_tickets: "新着チケット"
+  send_message: "メッセージを送信"
+  require_login_for_message: "メッセージを送るにはログインが必要です。"

@@ -21,14 +21,14 @@
               - screen_name = owner.screen_name
               - message = "@#{screen_name} このチケット欲しいです！  https://extick.herokuapp.com/tickets/#{ticket.id}"
             %td
-              %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal")
+              %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal" role="button")
                 %font(color="#ffffff")
                   %i.fa.fa-twitter to @#{screen_name}
             .modal.fade(id="Modal#{ticket.id}"tabindex="-1" data-toggle="modal" aria-hidden="true")
               .modal-dialog.modal-lg
                 .modal-content
                   .modal-header
-                    %h4.modal-title メッセージを送信
+                    %h4.modal-title= t('send_message')
                   - if session[:name]
                     .modal-body
                       = form_tag(controller: "tweet", action: "update") do
@@ -37,7 +37,7 @@
                           %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
                           %button.btn.btn-primary() Tweet
                   - else
-                    .modal-body メッセージを送るにはログインが必要です。
+                    .modal-body= t('require_login_for_message')
                     .modal-footer
                       %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
                       %a.btn.btn-primary(href="/auth/twitter" role="button")
