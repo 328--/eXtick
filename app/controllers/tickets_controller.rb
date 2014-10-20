@@ -119,8 +119,8 @@ class TicketsController < ApplicationController
       params.require(:ticket).permit(:event_name, :datetime, :place, :price, :twitter_token, :category_id, :tag_ids, :note, :user_id)
     end
 
-    # Format tags' name and Create tags' array for create or update ticket.
-    # Fromat - Cut tags' head and tail spaces.
+    # Format tags name and Create tags' array for create or update ticket.
+    # Fromat - Remove leading and trailing whitespace.
     def set_tag
       splits_tags = ticket_params[:tag_ids].to_s.split(",")
       tag_name = []
