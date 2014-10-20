@@ -119,24 +119,28 @@ class TicketsController < ApplicationController
       params.require(:ticket).permit(:event_name, :datetime, :place, :price, :twitter_token, :category_id, :tag_ids, :note, :user_id)
     end
 
+    # Format tags' name and Create tags' array for create or update ticket.
+    # Fromat - Cut tags' head and tail spaces.
     def set_tag
-      splits_tag = ticket_params[:tag_ids].to_s.split(",")
+      splits_tags = ticket_params[:tag_ids].to_s.split(",")
       tag_name = []
-	splits_tag.each{|n|
-	  tag_name << Tag.new(:name => n)
-	}	
+      splits_tags.each{|tag|
+        tag.strip!
+        tag_name << Tag.new(:name => tag)
+      }	
       Tag.import tag_name
       tag_text = Tag.arel_table[:name]
-      tag_sel = tag_text.matches("#{splits_tag[0]}")
-      for i in 1...splits_tag.length
-        tag_sel = tag_sel.or(tag_text.matches("#{splits_tag[i]}"))
+      tag_sel = tag_text.matches("#{splits_tags[0]}")
+      for i in 1...splits_tags.length
+        tag_sel = tag_sel.or(tag_text.matches("#{splits_tags[i]}"))
       end
       @tags = []
       Tag.where(tag_sel).select(:id).each{|t|
         @tags << t.id
       }	
     end
-
+    
+    # get tag ID from tag name.
     def get_tag_id(tags)
       splits_tag = tags.to_s.split(",")
       tag_text = Tag.arel_table[:name]
@@ -148,10 +152,11 @@ class TicketsController < ApplicationController
       Tag.where(tag_sel).select(:id).each{|t|
         tag_ids << t.id.to_s
       }
-
+      
       return tag_ids
     end
-
+    
+    # get tag name from tag ID.
     def get_tag_name(tags)
       tag_names = "" 
       if !tags.blank?
@@ -159,8 +164,8 @@ class TicketsController < ApplicationController
           tag_names << "#{t.name},"
         }
       end
-
+      
       return tag_names
     end
-
-end
+    
+  end
