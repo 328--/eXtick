@@ -73,33 +73,24 @@ class TicketsController < ApplicationController
   end
 
   def search
-    event_name = params[:event_name]
-    category_id = params[:category][:name] if params[:category].present?
-    tag_ids = get_tag_id(params[:tags])
+    tab_id = params[:tab_id]
+    target = nil
+    ticket_sel = nil
 
-    event_name_condition = nil
-    category_id_condition = nil
-    tag_ids_condition = nil
-
-    if !event_name.blank?
-      event_name_condition = Ticket.arel_table[:event_name].matches("%#{event_name}%")
-    end
-    if  !category_id.blank?
-      category_id_condition = Ticket.arel_table[:category_id].eq(category_id)
-    end
-    if !tag_ids.blank?
-      tag_ids_condition = Ticket.arel_table[:tag_ids].matches("%- #{tag_ids[0]}\n%")
-      for i in 1...tag_ids.length
-        tag_ids_condition = tag_ids_condition.or(Ticket.arel_table[:tag_ids].matches("%- #{tag_ids[i]}\n%"))
-      end
+    case tab_id
+    when "keyword"
+      target = params[tab_id]
+      ticket_sel = Ticket.arel_table[:event_name].matches("%#{target}%")
+    when "tag"
+      target = get_tag_id(params[tab_id])
+      ticket_sel = Ticket.arel_table[:tag_ids].matches("%- #{target[0]}\n%")
+      for i in 1...target.length
+        ticket_sel = ticket_sel.or(Ticket.arel_table[:tag_ids].matches("%- #{target[i]}\n%"))
+      end      
+    else
     end
 
-    event_name_group = Ticket.arel_table.grouping(event_name_condition)
-    category_id_group = Ticket.arel_table.grouping(category_id_condition)
-    tag_id_group = Ticket.arel_table.grouping(tag_ids_condition)
-
-    ticket_sql = event_name_group.or(category_id_group).or(tag_id_group)
-    @searched_tickets = Ticket.where(ticket_sql).order("created_at DESC")
+    @searched_tickets = Ticket.where(ticket_sel).order("created_at DESC")
 
     respond_to do |format|
       format.html

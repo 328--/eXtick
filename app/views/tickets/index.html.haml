@@ -3,7 +3,7 @@
 - else
   = render(partial: "oauth")
 
-= render(partial: "search_form")
+= render(partial: "search_tab")
 
 #ajax_area
   = render(partial: "listing_tickets", locals: {tickets: @tickets, title: t('new_tickets')})
