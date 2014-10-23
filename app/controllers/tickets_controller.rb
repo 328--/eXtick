@@ -79,10 +79,10 @@ class TicketsController < ApplicationController
 
     case tab_id
     when "keyword"
-      target = params[tab_id]
+      target = params[:target]
       ticket_sel = Ticket.arel_table[:event_name].matches("%#{target}%")
     when "tag"
-      target = get_tag_id(params[tab_id])
+      target = get_tag_id(params[:target])
       ticket_sel = Ticket.arel_table[:tag_ids].matches("%- #{target[0]}\n%")
       for i in 1...target.length
         ticket_sel = ticket_sel.or(Ticket.arel_table[:tag_ids].matches("%- #{target[i]}\n%"))

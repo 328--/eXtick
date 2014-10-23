@@ -1,10 +1,30 @@
-= form_tag("/tickets/search", method: "get", remote: true) do
-  .form-group
-    .field
-      .col-xs-6
-        = text_field_tag(tab_id, params[tab_id], class: "form-control")
-      .col-xs-2
-        .actions
-          = submit_tag(t('search'), name: nil, class: "btn btn-default")
-  = hidden_field_tag(:tab_id, tab_id)
+.container
+  %h1= t('search_ticket')
+  .form-horizontal.well
+    %ul.nav.nav-tabs
+      %li.active
+        %a(href="#keyword" data-toggle="tab")
+          Keyword
+      %li
+        %a(href="#tag" data-toggle="tab")
+          Tag
 
+    = form_tag("/tickets/search", method: "get", remote: true) do
+      .form-group
+        .field
+          .col-xs-6
+            = text_field_tag(:target, params[:target], class: "form-control")
+          .col-xs-2
+            .actions
+              = submit_tag(t('search'), name: nil, class: "btn btn-default")
+      :javascript
+        $("a[data-toggle='tab']").on("shown.bs.tab", function(e) {
+          var hash = e.target.hash;
+          var tab_id = document.getElementById("tab_id");
+          if (hash == "#keyword") {
+            tab_id.value = "keyword";
+          } else if(hash == "#tag") {
+            tab_id.value = "tag";
+          }
+        })
+      = hidden_field_tag(:tab_id, "keyword")
