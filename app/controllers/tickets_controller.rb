@@ -160,7 +160,10 @@ class TicketsController < ApplicationController
     end
 
     def get_user_id(uid)
-      return User.find_by(uid: uid).id
+      user = User.find_by(uid: uid)
+      id = user ? user.id : ""
+
+      return id
     end
     
   end
