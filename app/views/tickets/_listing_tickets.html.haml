@@ -16,14 +16,14 @@
             %td= ticket.datetime
             %td= ticket.place
             %td= ticket.price
-            - owner = User.find_by(id: ticket.user_id)
-            - if owner.present?
-              - screen_name = owner.screen_name
-              - message = "@#{screen_name} このチケット欲しいです！  https://extick.herokuapp.com/tickets/#{ticket.id}"
             %td
-              %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal" role="button")
-                %font(color="#ffffff")
-                  %i.fa.fa-twitter to @#{screen_name}
+              - owner = User.find_by(id: ticket.user_id)
+              - if owner.present?
+                - screen_name = owner.screen_name
+                - message = "@#{screen_name} このチケット欲しいです！  https://extick.herokuapp.com/tickets/#{ticket.id}"
+                %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal" role="button")
+                  %font(color="#ffffff")
+                    %i.fa.fa-twitter to @#{screen_name}
             .modal.fade(id="Modal#{ticket.id}"tabindex="-1" data-toggle="modal" aria-hidden="true")
               .modal-dialog.modal-lg
                 .modal-content

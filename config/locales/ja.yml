@@ -37,6 +37,9 @@ ja:
   login_twitter: "Twitterでログイン"
   search: "検索"
   edit: "編集"
+  edit_message: "編集権限がありません"
+  delete: "削除"
+  delete_message: "よろしいですか？"
   back: "戻る"
   show: "表示"
   register_new_ticket: "新しいチケットを登録する"
@@ -46,3 +49,4 @@ ja:
   new_tickets: "新着チケット"
   send_message: "メッセージを送信"
   require_login_for_message: "メッセージを送るにはログインが必要です。"
+  

@@ -21,6 +21,7 @@ class TicketsController < ApplicationController
 
   # GET /tickets/1/edit
   def edit
+    @id = get_user_id(session[:uid])
   end
 
   # POST /tickets
@@ -87,7 +88,6 @@ class TicketsController < ApplicationController
       for i in 1...target.length
         ticket_sel = ticket_sel.or(Ticket.arel_table[:tag_ids].matches("%- #{target[i]}\n%"))
       end      
-    else
     end
 
     @searched_tickets = Ticket.where(ticket_sel).order("created_at DESC")
@@ -157,6 +157,10 @@ class TicketsController < ApplicationController
       end
       
       return tag_names
+    end
+
+    def get_user_id(uid)
+      return User.find_by(uid: uid).id
     end
     
   end
