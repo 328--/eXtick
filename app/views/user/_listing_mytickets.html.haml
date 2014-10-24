@@ -1,0 +1,24 @@
+.container
+  .row
+    .col-xs-12
+      %h1= title
+      %table.table.table-bordered.table-striped(align="center")
+        %tr
+          %th= t('event_name')
+          %th= t('datetime')
+          %th= t('place')
+          %th= t('price')
+          %th= nil
+          %th= nil
+
+        - tickets.each do |ticket|
+          %tr
+            %td= link_to(ticket.event_name, controller: "tickets", action: "show", id: ticket)
+            %td= ticket.datetime
+            %td= ticket.place
+            %td= ticket.price
+            %td= link_to(t('edit'), controller: "tickets", action: "edit", id: ticket)
+            %td= link_to(t('delete'), {controller: "tickets", action: "destroy", id: ticket}, data: {confirm: t('delete_message'), method: :delete})
+
+              
+              
