@@ -21,7 +21,7 @@ class TicketsController < ApplicationController
 
   # GET /tickets/1/edit
   def edit
-    @id = get_user_id(session[:uid])
+    @id = User.get_user_id(session[:uid])
   end
 
   # POST /tickets
@@ -51,8 +51,8 @@ class TicketsController < ApplicationController
   # PATCH/PUT /tickets/1.json
   def update
     respond_to do |format|
-    ticket_formated = ticket_params
-    ticket_formated["tag_ids"] = @tags
+      ticket_formated = ticket_params
+      ticket_formated["tag_ids"] = @tags
       if @ticket.update(ticket_formated)
         format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
         format.json { render :show, status: :ok, location: @ticket }
@@ -114,12 +114,9 @@ class TicketsController < ApplicationController
     # Fromat - Remove leading and trailing whitespace.
     def set_tag
       splits_tags = ticket_params[:tag_ids].to_s.split(",")
-      tag_name = []
-      splits_tags.each{|tag|
-        tag.strip!
-        tag_name << Tag.new(:name => tag)
-      }	
-      Tag.import tag_name
+      splits_tags.each do |tag|
+        Tag.create(name: tag.strip)
+      end
       tag_text = Tag.arel_table[:name]
       tag_sel = tag_text.matches("#{splits_tags[0]}")
       for i in 1...splits_tags.length
@@ -157,13 +154,6 @@ class TicketsController < ApplicationController
       end
       
       return tag_names
-    end
-
-    def get_user_id(uid)
-      user = User.find_by(uid: uid)
-      id = user ? user.id : ""
-
-      return id
     end
     
   end

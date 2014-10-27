@@ -52,3 +52,6 @@ gem 'sass'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'activerecord-import'
+
+gem 'better_errors'
+gem 'binding_of_caller'
