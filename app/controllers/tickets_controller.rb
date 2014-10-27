@@ -7,6 +7,7 @@ class TicketsController < ApplicationController
   def index
     @tickets = Ticket.all.order("created_at DESC")
     @ticket = Ticket.new
+    @ticket_category = @ticket.ticket_categories.build
   end
 
   # GET /tickets/1
@@ -28,18 +29,20 @@ class TicketsController < ApplicationController
   # POST /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
-    @ticket[:tag_ids] = @tags
-    puts ticket_params
-    
-    respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
-        format.json { render :show, status: :created, location: @ticket }
-      else
-        format.html { render :new }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
+    puts params[:tag_ids]
+
+    params[:category_id].to_s.split(",").each do |name|
+      @ticket.categorys.find_by(name: name)
     end
+
+    params[:tag_ids].to_s.split(",").each do |name|
+      @ticket.tags.build(name: name)
+    end
+
+    if @ticket.save
+      redirect_to(@ticket, notice: t('success_message'))
+    end
+    
   end
 
   # GET /tickets/myticket
@@ -102,12 +105,12 @@ class TicketsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
       @ticket = Ticket.find(params[:id])
-      @ticket[:tag_ids] = get_tag_name(@ticket.tag_ids)
+      #@ticket[:tag_ids] = get_tag_name(@ticket.tag_ids)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
-      params.require(:ticket).permit(:event_name, :datetime, :place, :price, :twitter_token, :note, :user_id)
+      params.require(:ticket).permit(:event_name, :datetime, :place, :price, :note, :user_id)
     end
 
     # Format tags name and Create tags' array for create or update ticket.

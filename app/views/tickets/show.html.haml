@@ -1,4 +1,4 @@
-%p#notice= notice
+%p#notice=  notice
 
 %p
   %b= "#{t('event_name')}:"
@@ -14,8 +14,8 @@
   = @ticket.price
 %p
   %b= "#{t('category')}:"
-  - if !@ticket.category_id.nil?
-    = Category.find(@ticket.category_id).name
+  - @ticket.categories.each do |category|
+    = category
 %p
   %b= "#{t('tag')}:"
   = @ticket.tag_ids

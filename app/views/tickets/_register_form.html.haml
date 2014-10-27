@@ -1,12 +1,12 @@
 .container
   %h1= title
   .form-horizontal.well
-    = form_for(@ticket) do |f|
-      - if @ticket.errors.any?
+    = form_for(ticket) do |f|
+      - if ticket.errors.any?
         #error_explanation
           %h2= "#{pluralize(@ticket.errors.count, "error")} prohibited this ticket from being saved:"
           %ul
-            - @ticket.errors.full_messages.each do |msg|
+            - ticket.errors.full_messages.each do |msg|
               %li= msg
 
       .form-group
@@ -42,7 +42,8 @@
           .col-xs-offset-2.col-xs-2
             = f.label(t('category'), class: "control-label")
           .col-xs-6
-            = f.collection_select(:category_id, Category.all, :id, :name, class: "form-control")
+            - form_for(tc) do |f_tc|
+              = f_tc.collection_select(:category_id, Category.all, :id, :name, class: "form-control")
 
       .form-group
         .field

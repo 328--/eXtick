@@ -49,3 +49,7 @@ en:
   new_tickets: "New Tickets"
   send_message: "Send Message"
   require_login_for_message: "You must login to send messages."
+  success_message: "Ticket was successfully registerd."
+  registered_ticket: "RegisteredTickets"
+  login: "login"
+  logout: "logout"

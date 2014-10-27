@@ -4,23 +4,25 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'tickets#index'
+  root(controller: "tickets", action: "index")
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
-  get '/callback', :to => 'session#callback'
-  post '/callback', :to => 'session#callback'
-  get '/logout' => 'session#destroy', :as => :logout
-  get '/user/myticket'
-  post '/tweet/update'
+  get("/callback", controller: "session", action: "callback")
+  post("/callback", controller: "session", action: "callback")
+  get("/logout", controller: "session", action: "destroy",as: :logout)
   
-  resources :tickets do
+  get("/mytickets", controller: "user", action: "myticket")
+
+  post("/tweet/update", controller: "tweet", action: "update")
+  
+  resources(:tickets) do
     member do
     end
 
     collection do
-      get 'search'
+      get("search")
     end
   end
   

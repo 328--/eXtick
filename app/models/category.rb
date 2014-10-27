@@ -1,6 +1,6 @@
 class Category < ActiveRecord::Base
-  has_many(:ticket_categorys)
-  has_many(:tickets, through: :ticket_categorys)
+  has_many(:ticket_categories)
+  has_many(:tickets, through: :ticket_categories)
   
   validates :name, :uniqueness => true
 end

@@ -1,5 +1,5 @@
 - if session[:name]
-  = render(partial: "register_form", locals: {title: t('register_new_ticket')})
+  = render(partial: "register_form", locals: {ticket: @ticket, tc: @ticket_category, title: t('register_new_ticket')})
 - else
   = render(partial: "oauth")
 
