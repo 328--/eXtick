@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141017170828) do
+ActiveRecord::Schema.define(version: 20141027144922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,16 +28,27 @@ ActiveRecord::Schema.define(version: 20141017170828) do
     t.datetime "updated_at"
   end
 
+  create_table "ticket_categories", force: true do |t|
+    t.integer  "ticket_id"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ticket_tags", force: true do |t|
+    t.integer  "ticket_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tickets", force: true do |t|
     t.string   "event_name"
     t.datetime "datetime"
     t.string   "place"
     t.integer  "price"
-    t.string   "twitter_token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "category_id"
-    t.text     "tag_ids"
     t.text     "note"
     t.integer  "user_id"
   end
@@ -50,7 +61,6 @@ ActiveRecord::Schema.define(version: 20141017170828) do
     t.string   "secret"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "ticket_ids"
   end
 
 end
