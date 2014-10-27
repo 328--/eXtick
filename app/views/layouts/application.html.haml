@@ -27,8 +27,10 @@
                   .caret
                 %ul.dropdown-menu
                   %li
+                    %a(href=new_ticket_path) チケット登録
+                  %li
                     -#= link_to("Registered Tickets", controller: "tickets", action: "myticket")
-                    %a(href=user_myticket_path) Registered Tickets
+                    %a(href=user_myticket_path) マイチケット一覧
                   %li
                     %a(href=logout_path) ログアウト
             - else
