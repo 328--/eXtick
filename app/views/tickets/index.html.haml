@@ -1,6 +1,4 @@
-- if session[:name]
-  = render(partial: "register_form", locals: {ticket: @ticket, title: t('register_new_ticket')})
-- else
+- if session[:name].nil?
   = render(partial: "oauth")
 
 = render(partial: "search_form")
