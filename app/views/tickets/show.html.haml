@@ -15,10 +15,11 @@
 %p
   %b= "#{t('category')}:"
   - @ticket.categories.each do |category|
-    = category
+    = category[:name]
 %p
   %b= "#{t('tag')}:"
-  = @ticket.tag_ids
+  - @ticket.tags.each do |tag|
+    = tag[:name]
 
 %p
   %b= "#{t('note')}:"

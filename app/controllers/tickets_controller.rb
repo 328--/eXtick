@@ -7,7 +7,6 @@ class TicketsController < ApplicationController
   def index
     @tickets = Ticket.all.order("created_at DESC")
     @ticket = Ticket.new
-    @ticket_category = @ticket.ticket_categories.build
   end
 
   # GET /tickets/1
@@ -28,20 +27,16 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-    @ticket = Ticket.new(ticket_params)
-    puts params[:tag_ids]
+    param = params[:params]
+    @ticket = Ticket.create(ticket_params)
 
-    params[:category_id].to_s.split(",").each do |name|
-      @ticket.categorys.find_by(name: name)
-    end
+    @ticket.categories << Category.find_by(id: param[:category_id])
 
-    params[:tag_ids].to_s.split(",").each do |name|
-      @ticket.tags.build(name: name)
+    param[:tag_ids].to_s.split(",").each do |name|
+      @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
     end
-
-    if @ticket.save
-      redirect_to(@ticket, notice: t('success_message'))
-    end
+    
+    redirect_to(@ticket, notice: t('success_message'))
     
   end
 

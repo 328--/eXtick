@@ -42,15 +42,14 @@
           .col-xs-offset-2.col-xs-2
             = f.label(t('category'), class: "control-label")
           .col-xs-6
-            - form_for(tc) do |f_tc|
-              = f_tc.collection_select(:category_id, Category.all, :id, :name, class: "form-control")
+            = collection_select(:params, :category_id, Category.all, :id, :name, class: "form-control")
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
             = f.label(t('tag'), class: "control-label")
           .col-xs-6
-            = f.text_field(:tag_ids, class: "form-control", placeholder: "tag1,tag2,...")
+            = text_field(:params, :tag_ids, class: "form-control", placeholder: "tag1,tag2,...")
 
       .form-group
         .field
