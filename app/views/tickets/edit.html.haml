@@ -1,5 +1,5 @@
 - if @ticket[:user_id] == @id
-  = render("register_form", title: t('editing_ticket'))
+  = render("register_form", title: t('editing_ticket'), ticket: @ticket)
 - else
   %p= t('edit_message')
 
