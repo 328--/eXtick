@@ -1,6 +1,5 @@
 class TicketsController < ApplicationController 
   before_action(:set_ticket, only: [:show, :edit, :update, :destroy])
-  before_action(:set_tag, only: [:create, :update])
   
   # GET /tickets
   # GET /tickets.json
@@ -100,7 +99,6 @@ class TicketsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
       @ticket = Ticket.find(params[:id])
-      #@ticket[:tag_ids] = get_tag_name(@ticket.tag_ids)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -108,24 +106,6 @@ class TicketsController < ApplicationController
       params.require(:ticket).permit(:event_name, :datetime, :place, :price, :note, :user_id)
     end
 
-    # Format tags name and Create tags' array for create or update ticket.
-    # Fromat - Remove leading and trailing whitespace.
-    def set_tag
-      splits_tags = ticket_params[:tag_ids].to_s.split(",")
-      splits_tags.each do |tag|
-        Tag.create(name: tag.strip)
-      end
-      tag_text = Tag.arel_table[:name]
-      tag_sel = tag_text.matches("#{splits_tags[0]}")
-      for i in 1...splits_tags.length
-        tag_sel = tag_sel.or(tag_text.matches("#{splits_tags[i]}"))
-      end
-      @tags = []
-      Tag.where(tag_sel).select(:id).each{|t|
-        @tags << t.id
-      }	
-    end
-    
     # get tag ID from tag name.
     def get_tag_id(tags)
       splits_tag = tags.to_s.split(",")
@@ -140,18 +120,6 @@ class TicketsController < ApplicationController
       }
       
       return tag_ids
-    end
-    
-    # get tag name from tag ID.
-    def get_tag_name(tags)
-      tag_names = "" 
-      if !tags.blank?
-        Tag.find(tags).each{|t|
-          tag_names << "#{t.name},"
-        }
-      end
-      
-      return tag_names
     end
     
   end
