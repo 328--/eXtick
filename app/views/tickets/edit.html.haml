@@ -1,7 +1,7 @@
 - if @ticket[:user_id] == @id
-  = render("register_form", title: t('editing_ticket'), ticket: @ticket, tags: @tags)
+  = render("register_form", title: t('editing_ticket'), ticket: @ticket, tags: @tags, viewer: false)
 - else
-  %p= t('edit_message')
+  = render("register_form", title: t('editing_ticket'), ticket: @ticket, tags: @tags, viewer: true)
 
 = link_to(t('show'), controller: "tickets", action: "show", id: @ticket)
 \|

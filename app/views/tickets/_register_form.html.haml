@@ -14,36 +14,38 @@
           .col-xs-offset-2.col-xs-2
             = f.label(t('event_name'), class: "control-label")
           .col-xs-6
-            = f.text_field(:event_name, class: "form-control", placeholder: "Enter event name")
+            = f.text_field(:event_name, class: "form-control", placeholder: "Enter event name", readonly: viewer)
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
             = f.label(t('datetime'), class: "control-label")
           .col-xs-6
-            = f.datetime_select(:datetime, class: "form-control", use_month_numbers: true)
+            = f.datetime_select(:datetime, class: "form-control", use_month_numbers: true, disabled: viewer)
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
             = f.label(t('place'), class: "control-label")
           .col-xs-6
-            = f.text_field(:place, class: "form-control", placeholder: "Enter place")
+            = f.text_field(:place, class: "form-control", placeholder: "Enter place", readonly: viewer)
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
             = f.label(t('price'), class: "control-label")
           .col-xs-6
-            = f.number_field(:price, class: "form-control", placeholder: "Enter price")
+            = f.number_field(:price, class: "form-control", placeholder: "Enter price", readonly: viewer)
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
             = f.label(t('category'), class: "control-label")
           .col-xs-6
-            = collection_select(:params, :category_id, Category.all, :id, :name, class: "form-control")
-
+            - if viewer
+              = f.label('ここにカテゴリ名が入る', class: "control-label")
+            - else
+              = collection_select(:params, :category_id, Category.all, :id, :name, class: "form-control", disabled: viewer)
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
@@ -58,7 +60,7 @@
           .col-xs-offset-2.col-xs-2
             = f.label(t('note'), class: "control-label")
           .col-xs-6
-            = f.text_area(:note, class: "form-control", placeholder: "Enter some informations")
+            = f.text_area(:note, class: "form-control", placeholder: "Enter some informations", readonly: viewer)
           .col-xs-2
             .actions
               = f.submit(t('register'), class: "btn btn-default")
