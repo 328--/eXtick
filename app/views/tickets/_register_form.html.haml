@@ -66,5 +66,5 @@
               = f.submit(t('register'), class: "btn btn-default")
 
       - user = User.find_by(uid: session[:uid])
-      - if user != nil
+      - if !viewer
         = f.hidden_field(:user_id, value: user.id)
