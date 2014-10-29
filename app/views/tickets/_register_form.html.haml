@@ -49,8 +49,7 @@
           .col-xs-offset-2.col-xs-2
             = f.label(t('tag'), class: "control-label")
           .col-xs-6
-            = text_field(:params, :tag_ids, class: "form-control", placeholder: "tag1,tag2,...")
-
+            = text_field(:params, :tags, class: "form-control", placeholder: "tag1,tag2,...", value: tags)
       .form-group
         .field
           .col-xs-offset-2.col-xs-2

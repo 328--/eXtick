@@ -21,6 +21,11 @@ class TicketsController < ApplicationController
   # GET /tickets/1/edit
   def edit
     @id = User.get_user_id(session[:uid])
+    tag_ids = []
+    TicketTag.where(ticket_id: @ticket.id).select("tag_id").each do |model|
+      tag_ids << model.tag_id
+    end
+    @tags = get_tag_name(tag_ids)
   end
 
   # POST /tickets
@@ -124,4 +129,18 @@ class TicketsController < ApplicationController
       return tag_ids
     end
     
+    # get tag name from tag ID.
+    def get_tag_name(tags)
+      tag_names = ""
+      if !tags.blank?
+        Tag.find(tags).each{|t|
+          tag_names << "#{t.name},"
+        }
+      end
+      if !tag_names.blank?
+        tag_names.chop!
+      end
+      return tag_names
+    end  
+
   end
