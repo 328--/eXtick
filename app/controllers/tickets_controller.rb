@@ -36,7 +36,7 @@ class TicketsController < ApplicationController
 
     @ticket.categories << Category.find_by(id: param[:category_id])
 
-    param[:tag_ids].to_s.split(",").each do |name|
+    param[:tags].to_s.split(",").each do |name|
       @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
     end
     
@@ -54,7 +54,7 @@ class TicketsController < ApplicationController
   def update
     respond_to do |format|
       TicketTag.delete_all("ticket_id = '#{@ticket.id}'")
-      params[:params][:tag_ids].to_s.split(",").each do |name|
+      params[:params][:tags].to_s.split(",").each do |name|
         @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
       end
       if @ticket.update(ticket_params)
