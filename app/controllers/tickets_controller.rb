@@ -48,9 +48,11 @@ class TicketsController < ApplicationController
   # PATCH/PUT /tickets/1.json
   def update
     respond_to do |format|
-      ticket_formated = ticket_params
-      ticket_formated["tag_ids"] = @tags
-      if @ticket.update(ticket_formated)
+      TicketTag.delete_all("ticket_id = '#{@ticket.id}'")
+      params[:params][:tag_ids].to_s.split(",").each do |name|
+        @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
+      end
+      if @ticket.update(ticket_params)
         format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
         format.json { render :show, status: :ok, location: @ticket }
       else
