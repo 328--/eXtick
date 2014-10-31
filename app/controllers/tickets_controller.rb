@@ -37,7 +37,7 @@ class TicketsController < ApplicationController
 #    @ticket.categories << Category.find_by(id: param[:category_id])
     
     if @ticket.valid?
-      param[:tags].to_s.split(",").each do |name|
+      param[:tags].to_s.split(",").uniq.each do |name|
         @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
       end
       
@@ -56,22 +56,18 @@ class TicketsController < ApplicationController
   # PATCH/PUT /tickets/1
   # PATCH/PUT /tickets/1.json
   def update
-    if @ticket.valid?
-      respond_to do |format|
-        TicketTag.delete_all("ticket_id = '#{@ticket.id}'")
-        params[:params][:tags].to_s.split(",").each do |name|
-          @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
-        end
-        if @ticket.update(ticket_params)
-          format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
-          format.json { render :show, status: :ok, location: @ticket }
-        else
-          format.html { render :edit }
-          format.json { render json: @ticket.errors, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      TicketTag.delete_all("ticket_id = '#{@ticket.id}'")
+      params[:params][:tags].to_s.split(",").uniq.each do |name|
+        @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
       end
-    else
-      redirect_to :back
+      if @ticket.update(ticket_params)
+        format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
+        format.json { render :show, status: :ok, location: @ticket }
+      else
+        format.html { render :edit }
+        format.json { render json: @ticket.errors, status: :unprocessable_entity }
+      end
     end
     
   end
