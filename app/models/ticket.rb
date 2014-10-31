@@ -17,5 +17,6 @@ class Ticket < ActiveRecord::Base
   has_many(:ticket_tags, dependent: :destroy)
   has_many(:tags, through: :ticket_tags)
   accepts_nested_attributes_for(:tags)
+  PagenatePer = 10
 
 end

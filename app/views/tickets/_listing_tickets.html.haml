@@ -48,3 +48,4 @@
             -# %td= link_to('Edit', controller: "tickets", action: "edit", id: ticket)
             -# %td= link_to 'Destroy', ticket, :method => :delete, :data => { :confirm => 'Are you sure?'}
             -# %td= link_to('Destroy', {controller: "tickets", action: "destroy", id: ticket}, data: {confirm: "Are you sure?", method: :delete})
+= paginate tickets 
