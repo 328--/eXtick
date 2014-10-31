@@ -1,4 +1,13 @@
 class Ticket < ActiveRecord::Base
+  validate :ticket_validation
+
+  def ticket_validation
+    if event_name.empty?
+      errors.add(:event_name, "can't be blank")
+    end
+    
+  end
+
   belongs_to(:user)
 
   has_many(:ticket_categories, dependent: :destroy)
