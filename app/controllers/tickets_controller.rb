@@ -4,7 +4,7 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all.order("created_at DESC")
+    @tickets = Ticket.order("created_at DESC").page(params[:page]).per(Ticket::PagenatePer)
     @ticket = Ticket.new
   end
 
