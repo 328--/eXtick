@@ -99,7 +99,7 @@ class TicketsController < ApplicationController
       end      
     end
 
-    @searched_tickets = Ticket.where(ticket_sel).order("created_at DESC")
+    @searched_tickets = Ticket.where(ticket_sel).order("created_at DESC").page(params[:page]).per(Ticket::PagenatePer)
 
     respond_to do |format|
       format.html
