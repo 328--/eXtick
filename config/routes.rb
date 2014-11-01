@@ -12,11 +12,12 @@ Rails.application.routes.draw do
   get("/callback", controller: "session", action: "callback")
   post("/callback", controller: "session", action: "callback")
   get("/logout", controller: "session", action: "destroy",as: :logout)
+  get("/auth/failure", controller: "session", action: "failure")
   
   get("/mytickets", controller: "user", action: "myticket")
 
   post("/tweet/update", controller: "tweet", action: "update")
-  
+
   resources(:tickets) do
     member do
     end
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
       get("search")
     end
   end
+  
   
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
