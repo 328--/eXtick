@@ -13,12 +13,6 @@
         .container-fluid
           .navbar-header
             %a.navbar-brand(href="/") eXtick
-          %ul.nav.navbar-nav
-            = form_tag("/tickets/search", method: "get", remote: true, class: "navbar-form") do
-              .form-group
-                = text_field_tag(:target, params[:target], class: "form-control", placeholder: "Enter event name")
-                = submit_tag(t('search'), name: nil, class: "btn btn-default")
-                = hidden_field_tag(:tab_id, "keyword")
           %ul.nav.navbar-nav.navbar-right
             - if session[:name]
               %li.dropdown
