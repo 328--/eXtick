@@ -84,23 +84,27 @@ class TicketsController < ApplicationController
 
   def search
     tab_id = params[:tab_id]
-    target = nil
-    ticket_sel = nil
+    searched_tickets = nil
 
     case tab_id
     when "keyword"
-      target = params[:target]
-      ticket_sel = Ticket.arel_table[:event_name].matches("%#{target}%")
+      keyword = params[:target]
+      ticket_sel = Ticket.arel_table[:event_name].matches("%#{keyword}%")
+      searched_tickets = Ticket.where(ticket_sel).order("created_at DESC").page(params[:page]).per(Ticket::PagenatePer)
     when "tag"
-      target = get_tag_id(params[:target])
-      ticket_sel = Ticket.arel_table[:tag_ids].matches("%- #{target[0]}\n%")
-      for i in 1...target.length
-        ticket_sel = ticket_sel.or(Ticket.arel_table[:tag_ids].matches("%- #{target[i]}\n%"))
-      end      
+      tag_ids = get_tag_id(params[:target])
+      ticket_tag_sel = TicketTag.arel_table[:tag_id].eq(tag_ids[0])
+      for i in 1...tag_ids.length
+        ticket_tag_sel = ticket_tag_sel.or(TicketTag.arel_table[:tag_id].eq(tag_ids[i]))
+      end
+      tickets = []
+      TicketTag.where(ticket_tag_sel).order("created_at DESC").each{|t|
+        tickets << t.ticket
+      }
+      searched_tickets = Kaminari.paginate_array(tickets.uniq).page(params[:page]).per(Ticket::PagenatePer)
     end
 
-    @searched_tickets = Ticket.where(ticket_sel).order("created_at DESC").page(params[:page]).per(Ticket::PagenatePer)
-
+    @searched_tickets = searched_tickets
     respond_to do |format|
       format.html
       format.js
