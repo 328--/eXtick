@@ -84,22 +84,22 @@ class TicketsController < ApplicationController
 
   def search
     tab_id = params[:tab_id]
+    target = params[:target]
     searched_tickets = nil
 
     case tab_id
     when "keyword"
-      keyword = params[:target]
-      ticket_sel = Ticket.arel_table[:event_name].matches("%#{keyword}%")
+      ticket_sel = Ticket.arel_table[:event_name].matches("%#{target}%")
       searched_tickets = Ticket.where(ticket_sel).order("created_at DESC").page(params[:page]).per(Ticket::PagenatePer)
     when "tag"
-      tag_ids = get_tag_id(params[:target])
-      ticket_tag_sel = TicketTag.arel_table[:tag_id].eq(tag_ids[0])
-      for i in 1...tag_ids.length
-        ticket_tag_sel = ticket_tag_sel.or(TicketTag.arel_table[:tag_id].eq(tag_ids[i]))
+      tags = params[:target].split(",")
+      tag_sel = Tag.arel_table[:name].eq(tags[0])
+      for i in 1...tags.length
+        tag_sel = tag_sel.or(Tag.arel_table[:name].eq(tags[i]))
       end
       tickets = []
-      TicketTag.where(ticket_tag_sel).order("created_at DESC").each{|t|
-        tickets << t.ticket
+      Tag.where(tag_sel).order("created_at DESC").each{|t|
+        tickets.concat(t.tickets)
       }
       searched_tickets = Kaminari.paginate_array(tickets.uniq).page(params[:page]).per(Ticket::PagenatePer)
     end
@@ -120,22 +120,6 @@ class TicketsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
       params.require(:ticket).permit(:event_name, :datetime, :place, :price, :note, :user_id)
-    end
-
-    # get tag ID from tag name.
-    def get_tag_id(tags)
-      splits_tag = tags.to_s.split(",")
-      tag_text = Tag.arel_table[:name]
-      tag_sel = tag_text.matches("#{splits_tag[0]}")
-      for i in 1...splits_tag.length
-        tag_sel = tag_sel.or(tag_text.matches("#{splits_tag[i]}"))
-      end
-      tag_ids = []
-      Tag.where(tag_sel).select(:id).each{|t|
-        tag_ids << t.id.to_s
-      }
-      
-      return tag_ids
     end
     
     # get tag name from tag ID.
