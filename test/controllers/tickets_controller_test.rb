@@ -11,14 +11,14 @@ class TicketsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:tickets)
   end
 
-  test "should get new" do
+  test "should be redirected by new when user did not login" do
     get :new
-    assert_response :success
+    assert_response :redirect
   end
 
   test "should create ticket" do
     assert_difference('Ticket.count') do
-      post :create, ticket: @ticket, tags: @ticket.tags
+      post :create, ticket: @ticket
     end
 
     assert_redirected_to ticket_path(assigns(:ticket))
@@ -35,7 +35,7 @@ class TicketsControllerTest < ActionController::TestCase
   end
 
   test "should update ticket" do
-    patch :update, id: @ticket, ticket: { datetime: @ticket.datetime, event_name: @ticket.event_name, place: @ticket.place, price: @ticket.price, note: @ticket.note }
+    patch :update, id: @ticket, ticket: @ticket
     assert_redirected_to ticket_path(assigns(:ticket))
   end
 

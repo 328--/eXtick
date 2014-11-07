@@ -1,6 +1,8 @@
 class TicketsController < ApplicationController 
   before_action(:set_ticket, only: [:show, :edit, :update, :destroy])
   before_action(:set_user_id, only: [:edit, :update])
+  before_action(:set_user, only: [:edit, :new, :update, :create])
+
   
   # GET /tickets
   # GET /tickets.json
@@ -16,10 +18,15 @@ class TicketsController < ApplicationController
 
   # GET /tickets/new
   def new
-    @ticket = Ticket.new
-    @tags = ""
+    # this user did not login.
+    if @user.blank?
+      redirect_to action: :index
+    else
+      @ticket = Ticket.new
+      @tags = ""
+    end
   end
-
+  
   # GET /tickets/1/edit
   def edit
     tag_ids = []
@@ -123,6 +130,11 @@ class TicketsController < ApplicationController
     # set user id to @id.
     def set_user_id
       @id = User.get_user_id(session[:uid])
+    end
+
+    # set user to @user.
+    def set_user
+      @user = User.find_by(uid: session[:uid])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
