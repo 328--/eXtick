@@ -48,12 +48,9 @@
           .col-xs-offset-2.col-xs-2
             = label_tag("ticket_category", t('category'), class: "control-label")
           .col-xs-6
-            - if viewer
-              = label_tag("ticket_category", "ここにカテゴリ名が入る", class: "control-label")
-            - else
-              - Category.all.each do |category|
-                = check_box_tag("params[categories][]", category.id, checked = ticket.categories.include?(category), {id: "params_categories_#{category.id}"})
-                = label_tag("params_categories_#{category.id}", category.name, class: "control-label", readonly: viewer)
+            - Category.all.each do |category|
+              = check_box_tag("params[categories][]", category.id, checked = ticket.categories.include?(category), disabled: viewer)
+              = label_tag("params_categories_#{category.id}", category.name, class: "control-label")
 
       .form-group
         .field

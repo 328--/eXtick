@@ -36,10 +36,9 @@ class TicketsController < ApplicationController
   def create
     param = params[:params]
     @ticket = Ticket.create(ticket_params)
-    @tags = param[:tags]
     
     if @ticket.valid?
-      Array(param[:categories]).each do |id|
+      param[:categories].each do |id|
         @ticket.categories << Category.find_by(id: id)
       end
 
@@ -61,8 +60,10 @@ class TicketsController < ApplicationController
 
     TicketCategory.transaction do
       TicketCategory.delete_all(ticket_id: @ticket.id)
-      Array(params[:params][:categories]).each do |id|
-        @ticket.categories << Category.find_by(id: id)
+      if param[:categories]
+        param[:categories].each do |id|
+          @ticket.categories << Category.find_by(id: id)
+        end
       end
     end
     
