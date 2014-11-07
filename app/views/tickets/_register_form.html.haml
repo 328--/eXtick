@@ -58,10 +58,12 @@
           .col-xs-offset-2.col-xs-2
             = label_tag("ticket_tag", t('tag'), class: "control-label")
           .col-xs-6
-            - if params[:action] == "new"
+            - if params[:action] == "new" || params[:action] == "create"
               = text_field_tag("params[tags]", nil, class: "form-control", placeholder: "tag1,tag2,...")
-            - elsif params[:action] == "edit"
+            - elsif params[:action] == "edit" || params[:action] == "update"
               = text_field_tag("params[tags]", tags, class: "form-control", placeholder: "tag1,tag2,...")
+            - else
+              = "error: you came from #{params[:action]}. please report it."
 
       .form-group
         .field
