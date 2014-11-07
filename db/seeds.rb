@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Category.create(:name => "category 1")
-Category.create(:name => "category 2")
-Category.create(:name => "category 3")
-Category.create(:name => "category 4")
+Category.create(:name => "Rock")
+Category.create(:name => "J-POP")
+Category.create(:name => "Jazz")
+Category.create(:name => "anime")
