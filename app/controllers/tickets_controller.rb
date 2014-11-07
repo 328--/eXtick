@@ -1,5 +1,6 @@
 class TicketsController < ApplicationController 
   before_action(:set_ticket, only: [:show, :edit, :update, :destroy])
+  before_action(:set_user_id, only: [:edit, :update])
   
   # GET /tickets
   # GET /tickets.json
@@ -20,7 +21,6 @@ class TicketsController < ApplicationController
 
   # GET /tickets/1/edit
   def edit
-    @id = User.get_user_id(session[:uid])
     tag_ids = []
     TicketTag.where(ticket_id: @ticket.id).select("tag_id").each do |model|
       tag_ids << model.tag_id
@@ -115,6 +115,11 @@ class TicketsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
       @ticket = Ticket.find(params[:id])
+    end
+
+    # set user id to @id.
+    def set_user_id
+      @id = User.get_user_id(session[:uid])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
