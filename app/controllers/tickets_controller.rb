@@ -39,6 +39,10 @@ class TicketsController < ApplicationController
     @tags = param[:tags]
     
     if @ticket.valid?
+      Array(param[:categories]).each do |id|
+        @ticket.categories << Category.find_by(id: id)
+      end
+
       param[:tags].split(",").uniq.each do |name|
         @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
       end
@@ -54,11 +58,21 @@ class TicketsController < ApplicationController
   # PATCH/PUT /tickets/1.json
   def update
     param = params[:params]
-    @tags = param[:tags]
-    TicketTag.delete_all("ticket_id = '#{@ticket.id}'")
-    param[:tags].split(",").uniq.each do |name|
-      @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
+
+    TicketCategory.transaction do
+      TicketCategory.delete_all(ticket_id: @ticket.id)
+      Array(params[:params][:categories]).each do |id|
+        @ticket.categories << Category.find_by(id: id)
+      end
     end
+    
+    TicketTag.transaction do
+      TicketTag.delete_all(ticket_id: @ticket.id)
+      param[:tags].split(",").uniq.each do |name|
+        @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
+      end
+    end
+    
     if @ticket.update(ticket_params)
       redirect_to(@ticket, notice: 'Ticket was successfully updated.')
     else
