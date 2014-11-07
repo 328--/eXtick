@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027144922) do
+ActiveRecord::Schema.define(version: 20141107155233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20141027144922) do
 
   create_table "tags", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ticket_bots", force: true do |t|
+    t.string   "screen_name"
+    t.text     "tweet_url"
+    t.text     "tweet"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,6 +55,7 @@ ActiveRecord::Schema.define(version: 20141027144922) do
     t.datetime "datetime"
     t.string   "place"
     t.integer  "price"
+    t.string   "twitter_token"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "note"
