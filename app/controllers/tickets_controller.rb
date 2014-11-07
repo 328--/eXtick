@@ -20,29 +20,23 @@ class TicketsController < ApplicationController
   def new
     # this user did not login.
     if @user.blank?
-      redirect_to action: :index
+      redirect_to(action: :index)
     else
       @ticket = Ticket.new
-      @tags = ""
     end
   end
   
   # GET /tickets/1/edit
   def edit
-    tag_ids = []
-    TicketTag.where(ticket_id: @ticket.id).select("tag_id").each do |model|
-      tag_ids << model.tag_id
-    end
-    @tags = get_tag_name(tag_ids)
+    @tags = @ticket.tags
   end
-
+  
   # POST /tickets
   # POST /tickets.json
   def create
     param = params[:params]
     @ticket = Ticket.create(ticket_params)
     @tags = param[:tags]
-#    @ticket.categories << Category.find_by(id: param[:category_id])
     
     if @ticket.valid?
       param[:tags].split(",").uniq.each do |name|
@@ -51,14 +45,9 @@ class TicketsController < ApplicationController
       
       redirect_to(@ticket, notice: t('success_message'))
     else
-      render :new
+      redirect_to(action: :new)
     end
     
-  end
-
-  # GET /tickets/myticket
-  def myticket
-    @tickets = Ticket.all.order("created_at DESC")
   end
 
   # PATCH/PUT /tickets/1
@@ -66,32 +55,24 @@ class TicketsController < ApplicationController
   def update
     param = params[:params]
     @tags = param[:tags]
-    respond_to do |format|
-      TicketTag.delete_all("ticket_id = '#{@ticket.id}'")
-      param[:tags].split(",").uniq.each do |name|
-        @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
-      end
-      if @ticket.update(ticket_params)
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
-        format.json { render :show, status: :ok, location: @ticket }
-      else
-        format.html { render :edit }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
+    TicketTag.delete_all("ticket_id = '#{@ticket.id}'")
+    param[:tags].split(",").uniq.each do |name|
+      @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
     end
-    
+    if @ticket.update(ticket_params)
+      redirect_to(@ticket, notice: 'Ticket was successfully updated.')
+    else
+      redirect_to(action: :edit)
+    end
   end
 
   # DELETE /tickets/1
   # DELETE /tickets/1.json
   def destroy
     @ticket.destroy
-    respond_to do |format|
-      format.html { redirect_to tickets_url, notice: 'Ticket was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to(tickets_url, notice: 'Ticket was successfully destroyed.')
   end
-
+  
   def search
     tab_id = params[:tab_id]
     target = params[:target]
@@ -108,52 +89,33 @@ class TicketsController < ApplicationController
         tag_sel = tag_sel.or(Tag.arel_table[:name].eq(tags[i]))
       end
       tickets = []
-      Tag.where(tag_sel).order("created_at DESC").each{|t|
+      Tag.where(tag_sel).order("created_at DESC").each do |t|
         tickets.concat(t.tickets)
-      }
+      end
       searched_tickets = Kaminari.paginate_array(tickets.uniq).page(params[:page]).per(Ticket::PagenatePer)
     end
 
     @searched_tickets = searched_tickets
-    respond_to do |format|
-      format.html
-      format.js
-    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ticket
-      @ticket = Ticket.find(params[:id])
-    end
-
-    # set user id to @id.
-    def set_user_id
-      @id = User.get_user_id(session[:uid])
-    end
-
-    # set user to @user.
-    def set_user
-      @user = User.find_by(uid: session[:uid])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def ticket_params
-      params.require(:ticket).permit(:event_name, :datetime, :place, :price, :note, :user_id)
-    end
-    
-    # get tag name from tag ID.
-    def get_tag_name(tags)
-      tag_names = ""
-      if !tags.blank?
-        Tag.find(tags).each{|t|
-          tag_names << "#{t.name},"
-        }
-      end
-      if !tag_names.blank?
-        tag_names.chop!
-      end
-      return tag_names
-    end  
-
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ticket
+    @ticket = Ticket.find(params[:id])
   end
+  
+  # set user id to @id.
+  def set_user_id
+    @id = User.get_user_id(session[:uid])
+  end
+  
+  # set user to @user.
+  def set_user
+    @user = User.find_by(uid: session[:uid])
+  end
+  
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def ticket_params
+    params.require(:ticket).permit(:event_name, :datetime, :place, :price, :note, :user_id)
+  end
+end

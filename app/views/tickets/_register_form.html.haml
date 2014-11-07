@@ -1,7 +1,7 @@
 .container
   %h1= title
   .form-horizontal.well
-    - if @ticket.id.nil?
+    - if ticket.id.nil?
       - action = "create"
       - method = "post"
     - else
@@ -10,7 +10,7 @@
     = form_tag({action: action}, {method: method}) do
       - if ticket.errors.any?
         #error_explanation
-          %h2= "#{pluralize(@ticket.errors.count, "error")} prohibited this ticket from being saved:"
+          %h2= "#{pluralize(ticket.errors.count, "error")} prohibited this ticket from being saved:"
           %ul
             - ticket.errors.full_messages.each do |msg|
               %li= msg
@@ -20,7 +20,7 @@
           .col-xs-offset-2.col-xs-2
             = label_tag("ticket_event_name", t('event_name'), class: "control-label")
           .col-xs-6
-            = text_field_tag("ticket[event_name]", @ticket.event_name, class: "form-control", placeholder: "Enter event name", readonly: viewer)
+            = text_field_tag("ticket[event_name]", ticket.event_name, class: "form-control", placeholder: "Enter event name", readonly: viewer)
 
       .form-group
         .field
@@ -34,14 +34,14 @@
           .col-xs-offset-2.col-xs-2
             = label_tag("ticket_place", t('place'), class: "control-label")
           .col-xs-6
-            = text_field_tag("ticket[place]", @ticket.place, class: "form-control", placeholder: "Enter place", readonly: viewer)
+            = text_field_tag("ticket[place]", ticket.place, class: "form-control", placeholder: "Enter place", readonly: viewer)
 
       .form-group
         .field
           .col-xs-offset-2.col-xs-2
             = label_tag("ticket_price", t('price'), class: "control-label")
           .col-xs-6
-            = number_field_tag("ticket[price]", @ticket.price, class: "form-control", placeholder: "Enter price", readonly: viewer) 
+            = number_field_tag("ticket[price]", ticket.price, class: "form-control", placeholder: "Enter price", readonly: viewer) 
 
       .form-group
         .field
@@ -61,7 +61,7 @@
             - if params[:action] == "new" || params[:action] == "create"
               = text_field_tag("params[tags]", tags, class: "form-control", placeholder: "tag1,tag2,...")
             - elsif params[:action] == "edit" || params[:action] == "update"
-              = text_field_tag("params[tags]", tags, class: "form-control", placeholder: "tag1,tag2,...")
+              = text_field_tag("params[tags]", "#{tags.get_name.join(",")}", class: "form-control", placeholder: "tag1,tag2,...")
             - else
               = "error: you came from #{params[:action]}. please report it."
 
@@ -70,10 +70,10 @@
           .col-xs-offset-2.col-xs-2
             = label_tag("note", t('note'), class: "control-label")
           .col-xs-6
-            = text_area_tag("ticket[note]", @ticket.note, class: "form-control", placeholder: "Enter some informations", readonly: viewer)
+            = text_area_tag("ticket[note]", ticket.note, class: "form-control", placeholder: "Enter some informations", readonly: viewer)
           .col-xs-2
             .actions
               = submit_tag(t('register'), class: "btn btn-default")
 
       - if !viewer
-        = hidden_field_tag("ticket[user_id]", @user.id)
+        = hidden_field_tag("ticket[user_id]", user.id)

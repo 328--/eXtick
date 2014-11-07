@@ -19,4 +19,17 @@ class Ticket < ActiveRecord::Base
   accepts_nested_attributes_for(:tags)
   PagenatePer = 10
 
+  def tags
+    super.tap do |c|
+      c.class_eval do
+        def get_name
+          name = []
+          self.each do |tag|
+            name << tag.name
+          end
+          return name
+        end
+      end
+    end
+  end
 end
