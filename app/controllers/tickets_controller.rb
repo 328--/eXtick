@@ -17,6 +17,7 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
     @ticket = Ticket.new
+    @tags = ""
   end
 
   # GET /tickets/1/edit
@@ -33,7 +34,7 @@ class TicketsController < ApplicationController
   def create
     param = params[:params]
     @ticket = Ticket.create(ticket_params)
-
+    @tags = param[:tags]
 #    @ticket.categories << Category.find_by(id: param[:category_id])
     
     if @ticket.valid?
@@ -43,7 +44,7 @@ class TicketsController < ApplicationController
       
       redirect_to(@ticket, notice: t('success_message'))
     else
-      redirect_to :back
+      render :new
     end
     
   end
@@ -56,9 +57,11 @@ class TicketsController < ApplicationController
   # PATCH/PUT /tickets/1
   # PATCH/PUT /tickets/1.json
   def update
+    param = params[:params]
+    @tags = param[:tags]
     respond_to do |format|
       TicketTag.delete_all("ticket_id = '#{@ticket.id}'")
-      params[:params][:tags].split(",").uniq.each do |name|
+      param[:tags].split(",").uniq.each do |name|
         @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
       end
       if @ticket.update(ticket_params)
