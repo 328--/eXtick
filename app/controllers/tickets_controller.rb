@@ -110,29 +110,37 @@ class TicketsController < ApplicationController
         tickets.concat(t.tickets)
       end
       searched_tickets = Kaminari.paginate_array(tickets.uniq).page(params[:page]).per(Ticket::PagenatePer)
-    end
 
+    end
     @searched_tickets = searched_tickets
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
-  private
   # Use callbacks to share common setup or constraints between actions.
+  private
   def set_ticket
     @ticket = Ticket.find(params[:id])
   end
   
   # set user id to @id.
+  private
   def set_user_id
     @id = User.get_user_id(session[:uid])
   end
   
   # set user to @user.
+  private
   def set_user
     @user = User.find_by(uid: session[:uid])
   end
   
   # Never trust parameters from the scary internet, only allow the white list through.
+  private
   def ticket_params
     params.require(:ticket).permit(:event_name, :datetime, :place, :price, :note, :user_id)
   end
+
 end
