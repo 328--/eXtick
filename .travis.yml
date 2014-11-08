@@ -6,10 +6,10 @@ addons:
 before_script:
 - psql -c 'create database travis_ci_test;' -U postgres
 - cp config/database.yml.travis config/database.yml
-# deploy:
-#   provider: heroku
-#   api_key:
-#     secure: clp+kptsjoT55Qx5E5oasI1dvoVXPSZjX70AZN6QgqBzshUrGq+Cltrjwu3ieSRCEEdUeewxlPzDkRiatWT+8wP3iucaeXy8ZEPs05N1HH/a0B51zMO4dpcRG3EWG0OqMTAwEehXF3metkPxwPqeNBwtDkp1T5D215/O53Q+whQ=
-#   app: extick
-#   on:
-#     repo: 328--/eXtick
+deploy:
+  provider: heroku
+  api_key:
+    secure: clp+kptsjoT55Qx5E5oasI1dvoVXPSZjX70AZN6QgqBzshUrGq+Cltrjwu3ieSRCEEdUeewxlPzDkRiatWT+8wP3iucaeXy8ZEPs05N1HH/a0B51zMO4dpcRG3EWG0OqMTAwEehXF3metkPxwPqeNBwtDkp1T5D215/O53Q+whQ=
+  app: extick
+  on:
+    repo: 328--/eXtick
