@@ -60,7 +60,7 @@
             - if params[:action] == "new" || params[:action] == "create"
               = text_field_tag("params[tags]", tags, class: "form-control", placeholder: "tag1,tag2,...")
             - elsif params[:action] == "edit" || params[:action] == "update"
-              = text_field_tag("params[tags]", "#{tags.get_name.join(",")}", class: "form-control", placeholder: "tag1,tag2,...")
+              = text_field_tag("params[tags]", ticket.tag_strings, class: "form-control", placeholder: "tag1,tag2,...")
             - else
               = "error: you came from #{params[:action]}. please report it."
 

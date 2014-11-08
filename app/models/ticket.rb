@@ -18,18 +18,9 @@ class Ticket < ActiveRecord::Base
   has_many(:tags, through: :ticket_tags)
   accepts_nested_attributes_for(:tags)
   PagenatePer = 10
-
-  def tags
-    super.tap do |c|
-      c.class_eval do
-        def get_name
-          name = []
-          self.each do |tag|
-            name << tag.name
-          end
-          return name
-        end
-      end
-    end
+  
+  def tag_strings
+    return tags.map{|t| t.name}.join(',')
   end
+  
 end
