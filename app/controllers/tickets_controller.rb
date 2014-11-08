@@ -38,14 +38,16 @@ class TicketsController < ApplicationController
     @ticket = Ticket.create(ticket_params)
     
     if @ticket.valid?
-      param[:categories].each do |id|
-        @ticket.categories << Category.find_by(id: id)
+      if param[:categories]
+        param[:categories].each do |id|
+          @ticket.categories << Category.find_by(id: id)
+        end
       end
-
-      param[:tags].split(",").uniq.each do |name|
-        @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
+      if param[:tags]
+        param[:tags].split(",").uniq.each do |name|
+          @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
+        end
       end
-      
       redirect_to(@ticket, notice: t('success_message'))
     else
       redirect_to(action: :new)
