@@ -60,3 +60,5 @@ gem 'kaminari'
 
 gem 'tweetstream'
 gem 'eventmachine'
+
+gem 'rb-readline'
