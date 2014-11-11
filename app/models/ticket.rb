@@ -27,7 +27,7 @@ class Ticket < ActiveRecord::Base
   def self.get_tickets(keyword)
     ticket_sel = self.arel_table[:event_name].matches("%#{keyword}%")
     tickets = self.where(ticket_sel).order("created_at DESC")
-    return tickets
+    return tickets.uniq
   end
   
 end

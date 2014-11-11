@@ -21,7 +21,7 @@ class Tag < ActiveRecord::Base
     when "or"
       return tickets.uniq
     when "and"
-      return tickets.group_by{|i| i}.reject{|k,v| v.length < tags.length}.keys
+      return tickets.group_by{|i| i}.reject{|k,v| v.length < tags.length}.keys.uniq
     end
   end
 
