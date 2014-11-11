@@ -92,13 +92,11 @@ class TicketsController < ApplicationController
   
   def search
     searched_tickets = nil
-
     case params[:tab_id]
     when "keyword"
-      ticket_sel = Ticket.arel_table[:event_name].matches("%#{params[:target]}%")
-      searched_tickets = Ticket.where(ticket_sel).order("created_at DESC")
+      searched_tickets = Ticket.get_tickets(params[:target])
     when "tag"
-      searched_tickets = Tag.get_tickets(params[:target]).uniq
+      searched_tickets = Tag.get_tickets(params[:target], params[:method]).uniq
     end
 
     @searched_tickets = Kaminari.paginate_array(searched_tickets).page(params[:page]).per(Ticket::PagenatePer)

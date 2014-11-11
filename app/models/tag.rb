@@ -4,12 +4,16 @@ class Tag < ActiveRecord::Base
 
   validates(:name, uniqueness: true)
 
-  # get tickets from tags
-  def self.get_tickets(tags)
+  # get tickets from tags 
+  def self.get_tickets(tags, method)
     tags = tags.split(",")
     tag_sel = self.arel_table[:name].eq(tags[0])
     for i in 1...tags.length
-      tag_sel = tag_sel.or(self.arel_table[:name].eq(tags[i]))
+      if method == "or" then
+        tag_sel = tag_sel.or(self.arel_table[:name].eq(tags[i]))
+      elsif method == "and" then
+        tag_sel = tag_sel.and(self.arel_table[:name].eq(tags[i]))
+      end
     end
     tickets = []
     self.where(tag_sel).each do |t|

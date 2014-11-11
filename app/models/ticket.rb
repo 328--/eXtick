@@ -22,5 +22,12 @@ class Ticket < ActiveRecord::Base
   def tag_strings
     return tags.map{|t| t.name}.join(',')
   end
+
+  # get tickets from keyword(event name)
+  def self.get_tickets(keyword)
+    ticket_sel = self.arel_table[:event_name].matches("%#{keyword}%")
+    tickets = self.where(ticket_sel).order("created_at DESC")
+    return tickets
+  end
   
 end
