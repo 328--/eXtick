@@ -12,9 +12,15 @@
     = form_tag("/tickets/search", method: "get", remote: true) do
       .form-group
         .field
-          .col-xs-6
+          .col-xs-8
             = text_field_tag(:target, params[:target], class: "form-control")
-          .col-xs-2
+          .tab-content
+            .tab-pane(id="keyword")
+            .tab-pane(id="tag")
+              .col-xs-1
+                .actions
+                  = select_tag(params[:method], options_for_select([["OR", "or"], ["AND", "and"]]))
+          .col-xs-1
             .actions
               = submit_tag(t('search'), name: nil, class: "btn btn-default")
       :javascript
