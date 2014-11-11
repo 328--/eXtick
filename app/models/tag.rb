@@ -9,9 +9,10 @@ class Tag < ActiveRecord::Base
     tags = tags.split(",")
     tag_sel = self.arel_table[:name].eq(tags[0])
     for i in 1...tags.length
-      if method == "or" then
+      case method
+      when "or"
         tag_sel = tag_sel.or(self.arel_table[:name].eq(tags[i]))
-      elsif method == "and" then
+      when "and"
         tag_sel = tag_sel.and(self.arel_table[:name].eq(tags[i]))
       end
     end
