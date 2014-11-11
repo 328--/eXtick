@@ -9,17 +9,20 @@ class Tag < ActiveRecord::Base
     tags = tags.split(",")
     tag_sel = self.arel_table[:name].eq(tags[0])
     for i in 1...tags.length
-      case method
-      when "or"
-        tag_sel = tag_sel.or(self.arel_table[:name].eq(tags[i]))
-      when "and"
-        tag_sel = tag_sel.and(self.arel_table[:name].eq(tags[i]))
-      end
+      tag_sel = tag_sel.or(self.arel_table[:name].eq(tags[i]))
     end
+
     tickets = []
     self.where(tag_sel).each do |t|
       tickets.concat(t.tickets)
     end
-    return tickets
+
+    case method
+    when "or"
+      return tickets.uniq
+    when "and"
+      return tickets.group_by{|i| i}.reject{|k,v| v.length < tags.length}.keys
+    end
   end
+
 end

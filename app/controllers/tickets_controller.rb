@@ -96,7 +96,7 @@ class TicketsController < ApplicationController
     when "keyword"
       searched_tickets = Ticket.get_tickets(params[:target])
     when "tag"
-      searched_tickets = Tag.get_tickets(params[:target], params[:method]).uniq
+      searched_tickets = Tag.get_tickets(params[:target], params[:method])
     end
 
     @searched_tickets = Kaminari.paginate_array(searched_tickets).page(params[:page]).per(Ticket::PagenatePer)
