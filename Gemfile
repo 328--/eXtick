@@ -60,3 +60,4 @@ gem 'kaminari'
 
 gem 'tweetstream'
 gem 'eventmachine'
+gem 'parsley-rails'

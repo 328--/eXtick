@@ -20,7 +20,7 @@
           .col-xs-offset-2.col-xs-2
             = label_tag("ticket_event_name", t('event_name'), class: "control-label")
           .col-xs-6
-            = text_field_tag("ticket[event_name]", ticket.event_name, class: "form-control", placeholder: "Enter event name", readonly: viewer)
+            = text_field_tag("ticket[event_name]", ticket.event_name, class: "form-control", placeholder: "Enter event name", readonly: viewer, required: true)
 
       .form-group
         .field
