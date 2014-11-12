@@ -1,4 +1,3 @@
-require 'tweetstream'
 require_relative '../../config/environment'
 
 TweetStream.configure do |config|
@@ -9,9 +8,21 @@ TweetStream.configure do |config|
   config.auth_method        = :oauth
 end
 
+client = TweetStream::Client.new
 
-EM.run do
-  TweetStream::Client.new.follow(329071124) do |status|
+client.on_inited do
+  puts "Connected"
+end
+
+client.on_reconnect do |timeout, retries|
+  puts "reconnecting"
+end
+
+client.on_error do |message|
+  puts message
+end
+
+client.follow(329071124) do |status|
+  unless status.retweet?
     TicketBot.create_with_status(status)
-  end
 end
