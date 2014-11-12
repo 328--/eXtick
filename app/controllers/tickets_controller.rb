@@ -5,13 +5,11 @@ class TicketsController < ApplicationController
 
   
   # GET /tickets
-  # GET /tickets.json
   def index
     @tickets = Ticket.order("created_at DESC").page(params[:page]).per(Ticket::PagenatePer)
   end
 
   # GET /tickets/1
-  # GET /tickets/1.json
   def show
   end
 
@@ -31,7 +29,6 @@ class TicketsController < ApplicationController
   end
   
   # POST /tickets
-  # POST /tickets.json
   def create
     param = params[:params]
     Ticket.transaction do
