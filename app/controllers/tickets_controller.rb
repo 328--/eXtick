@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController 
-  before_action(:set_ticket, only: [:show, :edit, :destroy])
+  before_action(:set_ticket, only: [:show, :edit, :update, :destroy])
   before_action(:set_user_id, only: [:edit])
   before_action(:set_user, only: [:edit, :new])
 
