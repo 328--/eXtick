@@ -1,14 +1,13 @@
 class TicketsController < ApplicationController 
-  before_action(:set_ticket, only: [:show, :edit, :update, :destroy])
-  before_action(:set_user_id, only: [:edit, :update])
-  before_action(:set_user, only: [:edit, :new, :update, :create])
+  before_action(:set_ticket, only: [:show, :edit, :destroy])
+  before_action(:set_user_id, only: [:edit])
+  before_action(:set_user, only: [:edit, :new])
 
   
   # GET /tickets
   # GET /tickets.json
   def index
     @tickets = Ticket.order("created_at DESC").page(params[:page]).per(Ticket::PagenatePer)
-    @ticket = Ticket.new
   end
 
   # GET /tickets/1
@@ -35,56 +34,38 @@ class TicketsController < ApplicationController
   # POST /tickets.json
   def create
     param = params[:params]
-    @ticket = Ticket.create(ticket_params)
-    
-    if @ticket.valid?
-      if param[:categories]
-        param[:categories].each do |id|
-          @ticket.categories << Category.find_by(id: id)
-        end
-      end
-      if param[:tags]
-        param[:tags].split(",").uniq.each do |name|
-          @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
-        end
-      end
-      redirect_to(@ticket, notice: t('success_message'))
-    else
-      redirect_to(action: :new)
+    Ticket.transaction do
+      @ticket = Ticket.new(ticket_params)
+      
+      @ticket.set_category(param[:categories])
+      @ticket.set_tag(param[:tags])
+
+      @ticket.save!
     end
-    
+    redirect_to(@ticket, notice: t('success_message'))
+    rescue
+    redirect_to(action: :new)
   end
 
   # PATCH/PUT /tickets/1
-  # PATCH/PUT /tickets/1.json
   def update
     param = params[:params]
 
-    TicketCategory.transaction do
-      TicketCategory.delete_all(ticket_id: @ticket.id)
-      if param[:categories]
-        param[:categories].each do |id|
-          @ticket.categories << Category.find_by(id: id)
-        end
-      end
+    Ticket.transaction do
+      @ticket.categories.delete_all
+      @ticket.tags.delete_all
+      
+      @ticket.set_category(param[:categories])
+      @ticket.set_tag(param[:tags])
+
+      @ticket.update!(ticket_params)
     end
-    
-    TicketTag.transaction do
-      TicketTag.delete_all(ticket_id: @ticket.id)
-      param[:tags].split(",").uniq.each do |name|
-        @ticket.tags <<  Tag.find_or_create_by(name: name.strip)
-      end
-    end
-    
-    if @ticket.update(ticket_params)
-      redirect_to(@ticket, notice: 'Ticket was successfully updated.')
-    else
-      redirect_to(action: :edit)
-    end
+    redirect_to(@ticket, notice: 'Ticket was successfully updated.')
+    rescue
+    redirect_to(action: :edit)
   end
 
   # DELETE /tickets/1
-  # DELETE /tickets/1.json
   def destroy
     @ticket.destroy
     redirect_to(tickets_url, notice: 'Ticket was successfully destroyed.')

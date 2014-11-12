@@ -30,4 +30,24 @@ class Ticket < ActiveRecord::Base
     return tickets.uniq
   end
   
+  def set_category(ids)
+    if ids
+      ids.each do |id|
+        self.categories.append(Category.find_by(id: id))
+      end
+    end
+  end
+
+  def set_tag(names)
+    if names
+      names.split(",").uniq.each do |name|
+        if tag = Tag.find_by(name: name.strip)
+          self.tags.append(tag)
+        else
+          self.tags.build(name: name.strip)
+        end
+      end
+    end
+  end
+
 end
