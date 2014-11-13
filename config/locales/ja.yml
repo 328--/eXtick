@@ -20,6 +20,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 ja:
+  views:
+    pagination:
+      first: "最初"
+      last: "最後"
+      previous: "<< 前"
+      next: "次 >>"
+      truncate: "..."
   date:
     order:
     - :year
@@ -53,3 +60,4 @@ ja:
   registered_ticket: "登録したチケット"
   login: "ログイン"
   logout: "ログアウト"
+  tag_cloud: "タグ"

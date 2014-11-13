@@ -1,51 +1,50 @@
-.container
-  .row
-    .col-xs-12
-      %h1= title
-      %table.table.table-bordered.table-striped(align="center")
+.row
+  .col-xs-12
+    %h1= title
+    %table.table.table-bordered.table-striped(align="center")
+      %tr
+        %th= t('event_name')
+        %th= t('datetime')
+        %th= t('place')
+        %th= t('price')
+        %th= t('contact')
+
+      - tickets.each do |ticket|
         %tr
-          %th= t('event_name')
-          %th= t('datetime')
-          %th= t('place')
-          %th= t('price')
-          %th= t('contact')
+          %td= link_to(ticket.event_name, controller: "tickets", action: "show", id: ticket)
+          %td= ticket.datetime
+          %td= ticket.place
+          %td= ticket.price
+          %td
+            - owner = User.find_by(id: ticket.user_id)
+            - if owner.present?
+              - screen_name = owner.screen_name
+              - message = "@#{screen_name} このチケット欲しいです！  https://extick.herokuapp.com/tickets/#{ticket.id}"
+              %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal" role="button")
+                %font(color="#ffffff")
+                  %i.fa.fa-twitter to @#{screen_name}
+          .modal.fade(id="Modal#{ticket.id}"tabindex="-1" data-toggle="modal" aria-hidden="true")
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  %h4.modal-title= t('send_message')
+                - if session[:name]
+                  .modal-body
+                    = form_tag(controller: "tweet", action: "update") do
+                      = text_area_tag("message", message,  maxlength: "140", size: "80x5", class: "form-control")
+                      .modal-footer
+                        %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
+                        %button.btn.btn-primary() Tweet
+                - else
+                  .modal-body= t('require_login_for_message')
+                  .modal-footer
+                    %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
+                    %a.btn.btn-primary(href="/auth/twitter" role="button")
+                      %font(color="#ffffff")
+                        %i.fa.fa-twitter= t('login_twitter')
 
-        - tickets.each do |ticket|
-          %tr
-            %td= link_to(ticket.event_name, controller: "tickets", action: "show", id: ticket)
-            %td= ticket.datetime
-            %td= ticket.place
-            %td= ticket.price
-            %td
-              - owner = User.find_by(id: ticket.user_id)
-              - if owner.present?
-                - screen_name = owner.screen_name
-                - message = "@#{screen_name} このチケット欲しいです！  https://extick.herokuapp.com/tickets/#{ticket.id}"
-                %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal" role="button")
-                  %font(color="#ffffff")
-                    %i.fa.fa-twitter to @#{screen_name}
-            .modal.fade(id="Modal#{ticket.id}"tabindex="-1" data-toggle="modal" aria-hidden="true")
-              .modal-dialog.modal-lg
-                .modal-content
-                  .modal-header
-                    %h4.modal-title= t('send_message')
-                  - if session[:name]
-                    .modal-body
-                      = form_tag(controller: "tweet", action: "update") do
-                        = text_area_tag("message", message,  maxlength: "140", size: "80x5", class: "form-control")
-                        .modal-footer
-                          %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-                          %button.btn.btn-primary() Tweet
-                  - else
-                    .modal-body= t('require_login_for_message')
-                    .modal-footer
-                      %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-                      %a.btn.btn-primary(href="/auth/twitter" role="button")
-                        %font(color="#ffffff")
-                          %i.fa.fa-twitter= t('login_twitter')
-
-            -# %td= link_to('Show', controller: "tickets", action: "show", id: ticket)
-            -# %td= link_to('Edit', controller: "tickets", action: "edit", id: ticket)
-            -# %td= link_to 'Destroy', ticket, :method => :delete, :data => { :confirm => 'Are you sure?'}
-            -# %td= link_to('Destroy', {controller: "tickets", action: "destroy", id: ticket}, data: {confirm: "Are you sure?", method: :delete})
-= paginate tickets 
+          -# %td= link_to('Show', controller: "tickets", action: "show", id: ticket)
+          -# %td= link_to('Edit', controller: "tickets", action: "edit", id: ticket)
+          -# %td= link_to 'Destroy', ticket, :method => :delete, :data => { :confirm => 'Are you sure?'}
+          -# %td= link_to('Destroy', {controller: "tickets", action: "destroy", id: ticket}, data: {confirm: "Are you sure?", method: :delete})
+= paginate(tickets, remote: true)

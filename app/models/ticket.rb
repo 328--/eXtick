@@ -17,7 +17,7 @@ class Ticket < ActiveRecord::Base
   has_many(:ticket_tags, dependent: :destroy)
   has_many(:tags, through: :ticket_tags)
   accepts_nested_attributes_for(:tags)
-  PagenatePer = 10
+  paginates_per 10
   
   def tag_strings
     return tags.map{|t| t.name}.join(',')

@@ -6,7 +6,7 @@ class TicketsController < ApplicationController
   
   # GET /tickets
   def index
-    @tickets = Ticket.order("created_at DESC").page(params[:page]).per(Ticket::PagenatePer)
+    @tickets = Ticket.order("created_at DESC").page(params[:page])
   end
 
   # GET /tickets/1
@@ -49,8 +49,8 @@ class TicketsController < ApplicationController
     param = params[:params]
 
     Ticket.transaction do
-      @ticket.categories.delete_all
-      @ticket.tags.delete_all
+      @ticket.ticket_categories.delete_all
+      @ticket.ticket_tags.delete_all
       
       @ticket.set_category(param[:categories])
       @ticket.set_tag(param[:tags])
@@ -77,12 +77,7 @@ class TicketsController < ApplicationController
       searched_tickets = Tag.get_tickets(params[:target], params[:method])
     end
 
-    @searched_tickets = Kaminari.paginate_array(searched_tickets).page(params[:page]).per(Ticket::PagenatePer)
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    @searched_tickets = searched_tickets.page(params[:page])
   end
 
   # Use callbacks to share common setup or constraints between actions.

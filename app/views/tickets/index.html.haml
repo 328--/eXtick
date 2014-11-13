@@ -3,5 +3,10 @@
 
 = render(partial: "search_form")
 
-#ajax_area
-  = render(partial: "listing_tickets", locals: {tickets: @tickets, title: t('new_tickets')})
+.container
+  .row
+    .col-md-10
+      #ajax_area
+        = render(partial: "listing_tickets", locals: {tickets: @tickets, title: t('new_tickets')})
+    .col-md-2
+      = render(partial: "tag_cloud", locals: {title: t('tag_cloud')})
