@@ -20,7 +20,5 @@ module EXtick
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :ja
 
-    config.assets.precompile += ["ja", "en"].map { |l| "parsley.i18n.#{l}.js" }
-
   end
 end

@@ -62,4 +62,3 @@ gem 'tweetstream'
 gem 'eventmachine'
 
 gem 'rb-readline'
-gem 'parsley-rails'

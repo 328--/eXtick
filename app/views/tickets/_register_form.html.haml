@@ -7,7 +7,7 @@
     - else
       - action = "update"
       - method = "patch"
-    = form_tag({action: action}, {method: method, 'data-parsley-validate' => ''}) do
+    = form_tag({action: action}, {method: method}) do
       - if ticket.errors.any?
         #error_explanation
           %h2= "#{pluralize(ticket.errors.count, "error")} prohibited this ticket from being saved:"
