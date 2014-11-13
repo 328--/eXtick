@@ -17,12 +17,18 @@
 $ git clone https://github.com/328--/eXtick
 $ echo "export TWITTER_CS_KEY=xxxxxxxxxxxxxxxxxxxx" >> ~/.zshrc
 $ echo "export TWITTER_CS_SEC=xxxxxxxxxxxxxxxxxxxx" >> ~/.zshrc
+$ echo "export TWITTER_AT_KEY=xxxxxxxxxxxxxxxxxxxx" >> ~/.zshrc
+$ echo "export TWITTER_AT_SEC=xxxxxxxxxxxxxxxxxxxx" >> ~/.zshrc
 $ source ~/.zshrc
 $ cd eXtick
 $ bundle install
 $ rake db:create
 $ rake db:migrate
 $ rails server
+```
+- バックグラウンドでTweetを取得するためには以下を実行
+```
+$ foreman start
 ```
 
 
@@ -31,6 +37,8 @@ $ rails server
 - TwitterDevelopperに登録し，以下を環境変数に設定する必要があります
 - `TWITTER_CS_KEY`  Consumer Key
 - `TWITTER_CS_SEC` Consumer Secret
+- `TWITTER_AT_KEY` Access token Key
+- `TWITTER_AT_SEC` Access token Secret
 
 
 # ライセンス
