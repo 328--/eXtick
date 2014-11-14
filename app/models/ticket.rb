@@ -24,12 +24,25 @@ class Ticket < ActiveRecord::Base
   end
 
   # get tickets from keyword(event name)
-  def self.get_tickets(keyword)
-    ticket_sel = self.arel_table[:event_name].matches("%#{keyword}%")
-    tickets = self.where(ticket_sel).order("created_at DESC")
-    return tickets.uniq
+  def self.search_keyword(keyword)
+    return self.where("event_name like ?", "%#{keyword}%").order("created_at DESC")
   end
   
+  # get tickets from tag(name)
+  def self.search_tag(tags, method)
+    tag_array = tags.split(",")
+    ticket_ids = TicketTag.where(tag_id: Tag.where(name: tag_array).map(&:id)).map(&:ticket_id)
+
+    case method
+    when "or"
+      ticket_ids = ticket_ids.uniq
+    when "and"
+      ticket_ids = ticket_ids.group_by{|i| i}.reject{|k,v| v.one?}.keys
+    end
+
+    return self.where(id: ticket_ids).order("created_at DESC")
+  end
+
   def set_category(ids)
     if ids
       ids.each do |id|

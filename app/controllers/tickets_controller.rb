@@ -72,11 +72,11 @@ class TicketsController < ApplicationController
     searched_tickets = nil
     case params[:tab_id]
     when "keyword"
-      searched_tickets = Ticket.get_tickets(params[:target])
+      searched_tickets = Ticket.search_keyword(params[:target])
     when "tag"
-      searched_tickets = Tag.get_tickets(params[:target], params[:method])
+      searched_tickets = Ticket.search_tag(params[:target], params[:method])
     end
-
+    
     @searched_tickets = searched_tickets.page(params[:page])
   end
 
