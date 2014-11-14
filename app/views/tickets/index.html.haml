@@ -10,3 +10,8 @@
         = render(partial: "listing_tickets", locals: {tickets: @tickets, title: t('new_tickets')})
     .col-md-2
       = render(partial: "tag_cloud", locals: {title: t('tag_cloud')})
+
+  .row
+    .col-md-12
+      #ajax_area
+        = render(partial: "listing_tickets_bot", locals: {tickets: @tickets, title: t('ticket_bot_index')})

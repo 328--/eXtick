@@ -61,3 +61,5 @@ ja:
   login: "ログイン"
   logout: "ログアウト"
   tag_cloud: "タグ"
+  ticket_bot_index: "チケットおじさんからの新着情報"
+  ticket_bot_tweet: "ツイート"
