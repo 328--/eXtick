@@ -56,6 +56,7 @@ gem 'activerecord-import'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'pry-rails'
 end
 
 gem 'kaminari'
@@ -64,3 +65,4 @@ gem 'tweetstream'
 gem 'eventmachine'
 
 gem 'rb-readline'
+
