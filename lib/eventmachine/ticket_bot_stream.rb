@@ -25,4 +25,5 @@ end
 client.follow(329071124) do |status|
   unless status.retweet?
     TicketBot.create_with_status(status)
+  end
 end
