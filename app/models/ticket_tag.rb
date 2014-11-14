@@ -10,7 +10,7 @@ class TicketTag < ActiveRecord::Base
   end
 
   def self.tag_cloud
-    return self.uniq_ids.map{|id| [Tag.find(id).name, self.where(tag_id: id).count]}.sort_by{|name,num| num}.reverse
+    self.uniq_ids.map{|id| [Tag.find(id).name, self.where(tag_id: id).count]}.sort_by{|name,num| num}.reverse
   end
 
 end

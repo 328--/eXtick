@@ -53,8 +53,10 @@ gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'activerecord-import'
 
-gem 'better_errors'
-gem 'binding_of_caller'
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
 
 gem 'kaminari'
 
