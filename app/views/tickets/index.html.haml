@@ -1,9 +1,9 @@
-- if session[:name].nil?
-  = render(partial: "oauth")
-
-= render(partial: "search_form")
-
 .container
+  - if session[:name].nil?
+    = render(partial: "oauth")
+
+  = render(partial: "search_form")
+
   .row
     .col-md-10
       #ajax_area
