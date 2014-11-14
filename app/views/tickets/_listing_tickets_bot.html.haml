@@ -33,4 +33,4 @@
                       %font(color="#ffffff")
                         %i.fa.fa-twitter= t('login_twitter')
 
-= paginate(tickets, remote: true)
+= paginate(tickets, param_name: "ticketbot", remote: true)
