@@ -23,6 +23,7 @@ client.on_error do |message|
 end
 
 client.follow(329071124) do |status|
+   puts "#{status.text}"
   unless status.retweet?
     TicketBot.create_with_status(status)
   end

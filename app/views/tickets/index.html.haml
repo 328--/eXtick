@@ -13,5 +13,5 @@
 
   .row
     .col-md-12
-      #ajax_area
-        = render(partial: "listing_tickets_bot", locals: {tickets: @tickets, title: t('ticket_bot_index')})
+      #tweetbot_area
+        = render(partial: "listing_tickets_bot", locals: {tickets: @tickets_bot, title: t('ticket_bot_index')})

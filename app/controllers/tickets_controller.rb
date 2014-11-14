@@ -7,6 +7,7 @@ class TicketsController < ApplicationController
   # GET /tickets
   def index
     @tickets = Ticket.order("created_at DESC").page(params[:page])
+    @tickets_bot = TicketBot.order("created_at DESC").page(params[:page])
   end
 
   # GET /tickets/1

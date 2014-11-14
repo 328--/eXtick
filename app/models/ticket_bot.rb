@@ -6,4 +6,6 @@ class TicketBot < ActiveRecord::Base
       ticketbot.tweet = status.text
     end
   end
+
+  paginates_per 10
 end
