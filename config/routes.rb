@@ -20,12 +20,13 @@ Rails.application.routes.draw do
 
   get("/tickets_bot/:id", controller: "tickets_bot", action: "show")
 
-  post("/tweet/update", controller: "tweet", action: "update")
+  post("/tweet/reply", controller: "tweet", action: "reply")
+  post("/tweet/notification", controller: "tweet", action: "notification")
 
   resources(:tickets) do
     member do
     end
-
+    
     collection do
       get("search")
     end

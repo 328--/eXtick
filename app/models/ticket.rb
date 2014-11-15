@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 class Ticket < ActiveRecord::Base
+  after_commit(:notification, on: [:create, :update])
   validate :ticket_validation
 
   def ticket_validation
@@ -63,4 +65,20 @@ class Ticket < ActiveRecord::Base
     end
   end
 
+  def notification
+    Thread.start do
+      TicketTag.includes(:tag).where(ticket_id: id).map{|tt| [tt.tag.id, tt.tag.name]}.each do |tag_id, name|
+        UserTag.includes(:user).where(tag_id: tag_id).each do |ut|
+          twitter = ut.user.init_twitter
+          twitter.update(send_message(id, name, ut.user.screen_name))
+        end
+      end
+    end
+  end
+
+  private
+  def send_message(id, name, user_name)
+    return "\@#{user_name} 「#{name}」のチケットが登録されました。 #{Rails.application.routes.url_helpers.ticket_url(id)} \#eXtick"
+  end
+  
 end

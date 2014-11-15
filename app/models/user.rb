@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many(:tickets)
 
-  has_many(:user_tags)
+  has_many(:user_tags, dependent: :destroy)
   has_many(:tags, through: :user_tags)
   
   def self.create_with_omniauth(auth)
@@ -23,6 +23,15 @@ class User < ActiveRecord::Base
   def set_tag(ids)
     if ids
       self.tags.append(Tag.where(id: ids))
+    end
+  end
+
+  def init_twitter
+    return Twitter::REST::Client.new do |config|
+      config.consumer_key = Settings.twitter.consumer_key
+      config.consumer_secret = Settings.twitter.consumer_secret
+      config.access_token = self.token
+      config.access_token_secret = self.secret
     end
   end
 
