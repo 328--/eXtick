@@ -19,4 +19,11 @@ class User < ActiveRecord::Base
     user = self.find_by(uid: uid)
     return user ? user.id : ""
   end
+
+  def set_tag(ids)
+    if ids
+      self.tags.append(Tag.where(id: ids))
+    end
+  end
+
 end

@@ -15,7 +15,7 @@
             = label_tag("user_tags", t('tag'), class: "control-label")
         .col-xs-7
           - tags.each do |tag|
-            = check_box_tag("params[tags][]", tag.id, checked = register_tags.include?(tag.id))
+            = check_box_tag("tags[]", tag.id, checked = register_tags.include?(tag.id))
             = label_tag("params_tags_#{tag.id}", tag.name, class: "control-label")
         .col-xs-2
           .actions

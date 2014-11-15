@@ -12,6 +12,17 @@ class UserController < ApplicationController
 
   def update
     User.transaction do
-    end  
+      user = User.includes(:tags).find_by(uid: session[:uid])
+
+      user.user_tags.delete_all
+
+      user.set_tag(params[:tags])
+
+      user.save!
+    end
+    redirect_to(root_path)
+    rescue
+    redirect_to(action: "watch_tag")
   end
+
 end
