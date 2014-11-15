@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_many(:tickets)
 
   has_many(:user_tags)
-  has_many(:tags, through: :user_tags))
+  has_many(:tags, through: :user_tags)
   
   def self.create_with_omniauth(auth)
     create! do |user|

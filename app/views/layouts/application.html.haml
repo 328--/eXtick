@@ -23,6 +23,8 @@
                   %li
                     = link_to(t("register_new_ticket"), controller: "tickets", action: "new")
                   %li
+                    = link_to(t("watch_tag"), controller: "user", action: "watch_tag")
+                  %li
                     = link_to(t("registered_ticket"), controller: "user", action: "myticket")
                   %li
                     = link_to(t("logout"), controller: "session", action: "destroy")

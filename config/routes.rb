@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   get("/auth/failure", controller: "session", action: "failure")
   
   get("/mytickets", controller: "user", action: "myticket")
+  get("/tag_watch", controller: "user", action: "watch_tag")
+  put("/update", controller: "user", action: "update")
+
   get("/tickets_bot/:id", controller: "tickets_bot", action: "show")
 
   post("/tweet/update", controller: "tweet", action: "update")

@@ -1,0 +1,22 @@
+%h1= title
+.form-horizontal.well
+  = form_tag({controller: "user", action: "update"}, {method: "put"}) do
+    - if user.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(user.errors.count, "error")} prohibited this tags from being saved:"
+        %ul
+          - user.errors.full_messages.each do |msg|
+            %li= msg
+
+    .form-group
+      .field
+        .col-xs-offset-1
+          .col-xs-2
+            = label_tag("user_tags", t('tag'), class: "control-label")
+        .col-xs-7
+          - tags.each do |tag|
+            = check_box_tag("params[tags][]", tag.id, checked = register_tags.include?(tag.id))
+            = label_tag("params_tags_#{tag.id}", tag.name, class: "control-label")
+        .col-xs-2
+          .actions
+            = submit_tag(t('register'), class: "btn btn-default")
