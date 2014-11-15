@@ -8,7 +8,7 @@
 
       - tickets.each do |ticket|
         %tr
-          %td= link_to(ticket.tweet, controller: "tickets_bot", action: "show", id: ticket)
+          %td= link_to(ticket.tweet)
           %td
             %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal" role="button")
               %font(color="#ffffff")
