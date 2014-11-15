@@ -3,7 +3,7 @@ class TicketBot < ActiveRecord::Base
     create! do |ticketbot|
       ticketbot.screen_name = status.user.screen_name
       ticketbot.tweet_url = status.uri.to_s
-      ticketbot.tweet = status.text
+      ticketbot.tweet = status.text.gsub(/^ *@Ticket_bot */,'')
     end
   end
 
