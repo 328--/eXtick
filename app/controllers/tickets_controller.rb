@@ -72,7 +72,7 @@ class TicketsController < ApplicationController
   def search
     searched_tickets = Ticket.search_by_keyword(params[:keyword])
     
-    unless params[:tag].strip.empty?
+    unless params[:tag].blank?
       searched_tickets = searched_tickets.search_by_tag(params[:tag], params[:method])
     end
 
