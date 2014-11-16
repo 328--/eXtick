@@ -1,25 +1,26 @@
 .container
   %h1= t('search_ticket')
   .form-horizontal.well
-    %ul.nav.nav-tabs
-      %li.active
-        %a(href="#keyword" data-toggle="tab")
-          Keyword
-      %li
-        %a(href="#tag" data-toggle="tab")
-          Tag
-
     = form_tag("/tickets/search", method: "get", remote: true) do
       .form-group
         .field
+          .col-xs-2
+            = label_tag("event_name", t("event_name"), class: "control-label")
           .col-xs-6
-            = text_field_tag(:target, params[:target], class: "form-control")
-          .tab-content
-            .tab-pane(id="keyword")
-            .tab-pane(id="tag")
-              .col-xs-2
-                .actions
-                  = select_tag(:method, options_for_select([["OR", "or"], ["AND", "and"]]))
+            = text_field_tag(:keyword, params[:keyword], class: "form-control")
+      .form-group
+        .field
+          .col-xs-2
+            = label_tag("tag", t("tag"), class: "control-label")
+          .col-xs-6
+            = text_field_tag(:tag, params[:tag], class: "form-control")
+          .col-xs-4
+            = label_tag("AND", "AND", class: "control-label")
+            = radio_button_tag(:method, "and", checked: true)
+            = label_tag("OR", "OR", class: "control-label")
+            = radio_button_tag(:method, "or")
+      .form-group
+        .field
           .col-xs-2
             .actions
               = submit_tag(t('search'), name: nil, class: "btn btn-default")

@@ -26,12 +26,12 @@ class Ticket < ActiveRecord::Base
   end
 
   # get tickets from keyword(event name)
-  def self.search_keyword(keyword)
+  def self.search_by_keyword(keyword)
     return self.where("event_name like ?", "%#{keyword}%").order("created_at DESC")
   end
   
   # get tickets from tag(name)
-  def self.search_tag(tags, method)
+  def self.search_by_tag(tags, method)
     tag_array = tags.split(",")
     
     if tag_array.count == 1
