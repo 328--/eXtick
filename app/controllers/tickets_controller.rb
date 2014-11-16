@@ -6,8 +6,8 @@ class TicketsController < ApplicationController
   
   # GET /tickets
   def index
-    @tickets = Ticket.order("created_at DESC").page(params[:default])
-    @tickets_bot = TicketBot.order("created_at DESC").page(params[:ticketbot])
+    @tickets = Ticket.order("created_at DESC").page(params[:ticket_page])
+    @tickets_bot = TicketBot.order("created_at DESC").page(params[:ticket_bot_page])
   end
 
   # GET /tickets/1
@@ -76,7 +76,7 @@ class TicketsController < ApplicationController
       searched_tickets = searched_tickets.search_tag(params[:tag], params[:method])
     end
 
-    @searched_tickets = searched_tickets.page(params[:page])
+    @searched_tickets = searched_tickets.page(params[:ticket_page])
   end
 
   # Use callbacks to share common setup or constraints between actions.
