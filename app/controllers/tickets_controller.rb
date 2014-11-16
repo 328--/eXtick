@@ -70,14 +70,12 @@ class TicketsController < ApplicationController
   end
   
   def search
-    searched_tickets = nil
-    case params[:tab_id]
-    when "keyword"
-      searched_tickets = Ticket.search_keyword(params[:target])
-    when "tag"
-      searched_tickets = Ticket.search_tag(params[:target], params[:method])
-    end
+    searched_tickets = Ticket.search_keyword(params[:keyword])
     
+    unless params[:tag].strip.empty?
+      searched_tickets = searched_tickets.search_tag(params[:tag], params[:method])
+    end
+
     @searched_tickets = searched_tickets.page(params[:page])
   end
 
