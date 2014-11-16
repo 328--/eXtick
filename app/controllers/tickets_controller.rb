@@ -70,10 +70,10 @@ class TicketsController < ApplicationController
   end
   
   def search
-    searched_tickets = Ticket.search_keyword(params[:keyword])
+    searched_tickets = Ticket.search_by_keyword(params[:keyword])
     
     unless params[:tag].strip.empty?
-      searched_tickets = searched_tickets.search_tag(params[:tag], params[:method])
+      searched_tickets = searched_tickets.search_by_tag(params[:tag], params[:method])
     end
 
     @searched_tickets = searched_tickets.page(params[:ticket_page])
