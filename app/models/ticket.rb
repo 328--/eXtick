@@ -33,8 +33,13 @@ class Ticket < ActiveRecord::Base
   # get tickets from tag(name)
   def self.search_tag(tags, method)
     tag_array = tags.split(",")
+    
+    if tag_array.count == 1
+      method = "or"
+    end
+    
     ticket_ids = TicketTag.where(tag_id: Tag.where(name: tag_array).map(&:id)).map(&:ticket_id)
-
+    
     case method
     when "or"
       ticket_ids = ticket_ids.uniq
