@@ -31,12 +31,6 @@ class TicketsControllerTest < ActionController::TestCase
     assert_redirected_to(action: :index)
   end
 
-  # test "should update ticket" do
-  #   puts @ticket
-  #   patch(:update, params: @params)
-  #   assert_redirected_to ticket_path(assigns(:ticket))
-  # end
-
   test "should destroy ticket" do
     assert_difference('Ticket.count', -1) do
       delete :destroy, id: @ticket
