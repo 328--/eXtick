@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 20141115135417) do
     t.datetime "datetime"
     t.string   "place"
     t.integer  "price"
-    t.string   "twitter_token"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "note"
