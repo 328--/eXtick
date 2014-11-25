@@ -31,7 +31,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
-    autoprefixer-rails (3.1.2.20141016)
+    autoprefixer-rails (4.0.1)
       execjs
     better_errors (2.0.0)
       coderay (>= 1.0.0)
@@ -43,6 +43,9 @@ GEM
       sass (~> 3.2)
     buftok (0.2.0)
     builder (3.2.2)
+    clockwork (1.1.0)
+      activesupport
+      tzinfo
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -82,11 +85,11 @@ GEM
       railties (>= 4.0.1)
     hashie (3.3.1)
     hike (1.2.3)
-    http (0.6.2)
+    http (0.6.3)
       http_parser.rb (~> 0.6.0)
     http_parser.rb (0.6.0)
     i18n (0.6.11)
-    jbuilder (2.2.4)
+    jbuilder (2.2.5)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.2)
@@ -214,6 +217,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
+  clockwork
   coffee-rails (~> 4.0.0)
   eventmachine
   haml-rails

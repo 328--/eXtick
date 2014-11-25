@@ -24,14 +24,3 @@
           .col-xs-2
             .actions
               = submit_tag(t('search'), name: nil, class: "btn btn-default")
-      :javascript
-        $("a[data-toggle='tab']").on("shown.bs.tab", function(e) {
-          var hash = e.target.hash;
-          var tab_id = document.getElementById("tab_id");
-          if (hash == "#keyword") {
-            tab_id.value = "keyword";
-          } else if(hash == "#tag") {
-            tab_id.value = "tag";
-          }
-        })
-      = hidden_field_tag(:tab_id, "keyword")
