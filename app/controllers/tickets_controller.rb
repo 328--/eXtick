@@ -75,7 +75,7 @@ class TicketsController < ApplicationController
       tickets = Ticket.search_by_keyword(params[:keyword])
       
       unless params[:tag].blank?
-        tickets = searched_tickets.search_by_tag(params[:tag], params[:method])
+        tickets = tickets.search_by_tag(params[:tag], params[:method])
       end
       @title =  params[:tag].blank? && params[:keyword].blank? ? I18n.t("new_tickets") : I18n.t("search_result")
       @tickets = tickets.page(params[:ticket_page])

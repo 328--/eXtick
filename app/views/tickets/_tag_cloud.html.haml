@@ -1,5 +1,5 @@
 %h1= title
 - count=4
 - TicketTag.tag_cloud.each do |name,num|
-  = link_to("#{name}(#{num})", {controller: "tickets", action: "search", tag: name, method: "or"}, remote: true, class: "tag#{count}")
+  = link_to("#{name}(#{num})", {controller: "tickets", action: "search", tag: name, method: "or", target: "ticket"}, remote: true, class: "tag#{count}")
   - count-=1
