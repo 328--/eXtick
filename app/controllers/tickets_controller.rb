@@ -77,7 +77,7 @@ class TicketsController < ApplicationController
       unless params[:tag].blank?
         tickets = searched_tickets.search_by_tag(params[:tag], params[:method])
       end
-      
+      @title =  params[:tag].blank? && params[:keyword].blank? ? I18n.t("new_tickets") : I18n.t("search_result")
       @tickets = tickets.page(params[:ticket_page])
     when "ticket_bot" then
       @tickets = TicketBot.order("created_at DESC").page(params[:ticket_bot_page])
