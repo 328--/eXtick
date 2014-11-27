@@ -1,26 +1,22 @@
-.container
-  %h1= t('search_ticket')
-  .form-horizontal.well
-    = form_tag("/tickets/search", method: "get", remote: true) do
-      .form-group
-        .field
-          .col-xs-2
-            = label_tag("event_name", t("event_name"), class: "control-label")
-          .col-xs-6
-            = text_field_tag(:keyword, params[:keyword], class: "form-control")
-      .form-group
-        .field
-          .col-xs-2
-            = label_tag("tag", t("tag"), class: "control-label")
-          .col-xs-6
-            = text_field_tag(:tag, params[:tag], class: "form-control")
-          .col-xs-4
-            = label_tag("AND", "AND", class: "control-label")
-            = radio_button_tag(:method, "and", checked: true)
-            = label_tag("OR", "OR", class: "control-label")
-            = radio_button_tag(:method, "or")
-      .form-group
-        .field
-          .col-xs-2
-            .actions
-              = submit_tag(t('search'), name: nil, class: "btn btn-default")
+%h1= t('search_ticket')
+= form_tag("/tickets/search", method: "get", remote: true) do
+  %fieldset
+    .row
+      .one.twelfth.skip-one
+        = label_tag("event_name", t("event_name"), class: "control-label")
+      .four.twelfths
+        = text_field_tag(:keyword, params[:keyword], class: "form-control")
+    .row
+      .one.twelfth.skip-one
+        = label_tag("tag", t("tag"), class: "control-label")
+      .four.twelfths
+        = text_field_tag(:tag, params[:tag], class: "form-control")
+      .two.twelfth
+        = label_tag("AND", "AND", class: "control-label")
+        = radio_button_tag(:method, "and", checked: true)
+        = label_tag("OR", "OR", class: "control-label")
+        = radio_button_tag(:method, "or")
+    .row
+      .one.twelfth.skip-one
+        .actions
+          = submit_tag(t('search'), name: nil, class: "btn btn-default")

@@ -1,18 +1,20 @@
-- if session[:name].nil?
-  = render(partial: "oauth")
-
-= render(partial: "search_form")
+.row
+  .ten.twelfth.skip-one
+    - if session[:name].nil?
+      = render(partial: "oauth")
 
 .row
-  .one.twelfth
-  .eight.twelfths
+  .ten.twelfth.skip-one
+    = render(partial: "search_form")
+
+.row
+  .eight.twelfths.skip-one
     #ajax_area
       = render(partial: "listing_tickets", locals: {tickets: @tickets, title: t('new_tickets')})
   .two.twelfths
     = render(partial: "tag_cloud", locals: {title: t('tag_cloud')})
 
 .row
-  .one.twelfth
-  .ten.twelfths
+  .ten.twelfths.skip-one
     #tweetbot_area
       = render(partial: "listing_tickets_bot", locals: {tickets: @tickets_bot, title: t('ticket_bot_index')})
