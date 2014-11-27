@@ -1,17 +1,18 @@
-.container
-  - if session[:name].nil?
-    = render(partial: "oauth")
+- if session[:name].nil?
+  = render(partial: "oauth")
 
-  = render(partial: "search_form")
+= render(partial: "search_form")
 
-  .row
-    .col-md-10
-      #ajax_area
-        = render(partial: "listing_tickets", locals: {tickets: @tickets, title: t('new_tickets')})
-    .col-md-2
-      = render(partial: "tag_cloud", locals: {title: t('tag_cloud')})
+.row
+  .one.twelfth
+  .eight.twelfths
+    #ajax_area
+      = render(partial: "listing_tickets", locals: {tickets: @tickets, title: t('new_tickets')})
+  .two.twelfths
+    = render(partial: "tag_cloud", locals: {title: t('tag_cloud')})
 
-  .row
-    .col-md-12
-      #tweetbot_area
-        = render(partial: "listing_tickets_bot", locals: {tickets: @tickets_bot, title: t('ticket_bot_index')})
+.row
+  .one.twelfth
+  .ten.twelfths
+    #tweetbot_area
+      = render(partial: "listing_tickets_bot", locals: {tickets: @tickets_bot, title: t('ticket_bot_index')})
