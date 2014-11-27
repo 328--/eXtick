@@ -1,5 +1,9 @@
 @import 'groundworkcss/settings-rails4';
-@import "groundworkcss/groundwork";
+@import "groundworkcss/core/all-core";
+@import "groundworkcss/base/all-base";
+@import "groundworkcss/icons/all-icons";
+@import "groundworkcss/ui/all-ui";
+@import "groundworkcss/anim/all-animations";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap/theme";

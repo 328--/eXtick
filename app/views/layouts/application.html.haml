@@ -11,12 +11,16 @@
   %body
     .nav.blue
       %ul
-        %li= link_to("eXtick", root_path, {rel: "home"})
+        %li
+          %a.i.icon-home(href="/")
+            eXtick
         - if session[:name]
           %li= link_to(t("register_new_ticket"), controller: "tickets", action: "new")
           %li= link_to(t("registered_ticket"), controller: "user", action: "myticket")
           %li= link_to(t("watch_tag"), controller: "user", action: "watch_tag")
-          %li= link_to(t("inquiry"), "https://twitter.com/eXtick_")
+          %li
+            %a.i.icon-twitter(href="https://twitter.com/eXtick_")
+              = t("inquiry")
           %li= link_to(t("logout"), controller: "session", action: "destroy")
         - else
           %li= link_to(t("login"), "/auth/twitter")
@@ -27,7 +31,8 @@
     .container-fluid(role="contentinfo" align="center")
       %p
         ご意見ご要望はこちらまで
-        = link_to("@eXtick_", "https://twitter.com/eXtick_")
+        %a.i.icon-twitter(href="https://twitter.com/eXtick_")
+          @eXtick_
       %p
         %i.fa.fa-copyright
           2014 irohash
