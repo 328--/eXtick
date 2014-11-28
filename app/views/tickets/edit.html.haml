@@ -3,6 +3,4 @@
 - else
   = render(partial: 'register_form', locals: {ticket: @ticket, tags: @tags, title: t('editing_ticket'), viewer: true, user: @user})
 
-= link_to(t('show'), controller: "tickets", action: "show", id: @ticket)
-\|
 = link_to(t('back'), tickets_path)
