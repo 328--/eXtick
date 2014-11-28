@@ -69,3 +69,4 @@ ja:
   keyword: "キーワード"
   inquiry: "お問い合わせ"
   search_ticket_bot: "チケットおじさんからも検索する"
+  404_message: "そのページは存在しません。URLをご確認ください。"
