@@ -40,7 +40,7 @@ class TicketsController < ApplicationController
 
       @ticket.save!
     end
-    redirect_to(@ticket, notice: t('success_message'))
+    redirect_to(@ticket, notice: t('create_success'))
     rescue
     redirect_to(action: :new)
   end
@@ -58,7 +58,7 @@ class TicketsController < ApplicationController
 
       @ticket.update!(ticket_params)
     end
-    redirect_to(@ticket, notice: 'Ticket was successfully updated.')
+    redirect_to(@ticket, notice: t('update_success'))
     rescue
     redirect_to(action: :edit)
   end
@@ -66,7 +66,7 @@ class TicketsController < ApplicationController
   # DELETE /tickets/1
   def destroy
     @ticket.destroy
-    redirect_to(tickets_url, notice: 'Ticket was successfully destroyed.')
+    redirect_to(tickets_url, notice: t('destroy_success'))
   end
   
   def search
