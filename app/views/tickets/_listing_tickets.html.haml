@@ -20,9 +20,8 @@
               - screen_name = ticket.user_id.present? ? ticket.user.screen_name : ""
               - if ticket.user_id.present?
                 %a.blue.button(href="#Modal#{ticket.id}" data-toggle="modal")
-                  %font(color="#ffffff")
-                    %i.icon-twitter
-                      = screen_name
+                  %i.icon-twitter
+                    = screen_name
             .modal.fade(id="Modal#{ticket.id}" tabindex="-1" data-toggle="modal" aria-hidden="true")
               .modal-dialog.modal-lg
                 .modal-content
@@ -42,5 +41,6 @@
                         %a.button(data-dismiss="modal" aria-hidden="true")
                           Cancel
                         %a.blue.button(href="/auth/twitter")
-                          %i.icon-twitter= t('login_twitter')
+                          %i.icon-twitter
+                            = t('login_twitter')
 = paginate(tickets, param_name: "ticket_page", remote: true)
