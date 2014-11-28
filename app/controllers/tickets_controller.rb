@@ -81,7 +81,7 @@ class TicketsController < ApplicationController
     end
     if params[:search_ticket_bot]
       @bot_tickets = TicketBot.search_by_keyword(params[:keyword]).page(params[:ticket_bot_page])
-      @bot_title =  params[:tag].blank? && params[:keyword].blank? ? I18n.t("ticket_bot_index") : I18n.t("ticket_bot_result")
+      @bot_title =  params[:keyword].blank? ? I18n.t("ticket_bot_index") : I18n.t("ticket_bot_result")
     end
   end
 
