@@ -10,10 +10,6 @@ class TicketsController < ApplicationController
     @tickets_bot = TicketBot.order("created_at DESC").page(params[:ticket_bot_page])
   end
 
-  # GET /tickets/1
-  def show
-  end
-
   # GET /tickets/new
   def new
     # this user did not login.
