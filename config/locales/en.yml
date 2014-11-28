@@ -69,3 +69,5 @@ en:
   keyword: "Keyword"
   inquiry: "Contact Us"
   search_ticket_bot: "search ticket bot"
+  404_message: "The page does not exist. Please check the URL."
+  500_message: "We'er sorry, but something went wrong."
