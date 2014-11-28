@@ -7,5 +7,10 @@ class TicketBot < ActiveRecord::Base
     end
   end
 
+  # search keyword for tweets
+  def self.search_by_keyword(keyword)
+    return self.where("tweet like ?", "%#{keyword}%").order("created_at DESC")
+  end
+
   paginates_per 10
 end

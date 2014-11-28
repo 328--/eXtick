@@ -40,4 +40,4 @@
                       %a.btn.btn-primary(href="/auth/twitter" role="button")
                         %font(color="#ffffff")
                           %i.fa.fa-twitter= t('login_twitter')
-= paginate(tickets, param_name: "ticket_page", remote: true)
+= paginate(tickets, param_name: "ticket_page", remote: true, params: {controller: "tickets", action: "search",  search_ticket: true})

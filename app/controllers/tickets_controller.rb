@@ -70,13 +70,19 @@ class TicketsController < ApplicationController
   end
   
   def search
-    searched_tickets = Ticket.search_by_keyword(params[:keyword])
-    
-    unless params[:tag].blank?
-      searched_tickets = searched_tickets.search_by_tag(params[:tag], params[:method])
+    if params[:search_ticket]
+      @tickets = Ticket.search_by_keyword(params[:keyword])
+      
+      unless params[:tag].blank?
+        @tickets = @tickets.search_by_tag(params[:tag], params[:method])
+      end
+      @title =  params[:tag].blank? && params[:keyword].blank? ? I18n.t("new_tickets") : I18n.t("search_result")
+      @tickets = @tickets.page(params[:ticket_page])
     end
-
-    @searched_tickets = searched_tickets.page(params[:ticket_page])
+    if params[:search_ticket_bot]
+      @bot_tickets = TicketBot.search_by_keyword(params[:keyword]).page(params[:ticket_bot_page])
+      @bot_title =  params[:keyword].blank? ? I18n.t("ticket_bot_index") : I18n.t("ticket_bot_result")
+    end
   end
 
   # Use callbacks to share common setup or constraints between actions.

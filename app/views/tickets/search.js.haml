@@ -1,1 +1,4 @@
-$("#ajax_area").html("#{escape_javascript(render(partial: "listing_tickets", locals: {tickets: @searched_tickets, title: t('search_result')}))}");
+- if params[:search_ticket]
+  $("#ajax_area").html("#{escape_javascript(render(partial: "listing_tickets", locals: {tickets: @tickets, title: @title}))}");
+- if params[:search_ticket_bot]
+  $("#tweetbot_area").html("#{escape_javascript(render(partial: "listing_tickets_bot", locals: {tickets: @bot_tickets, title: @bot_title}))}");
