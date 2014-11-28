@@ -28,7 +28,7 @@
                   %li
                     = link_to(t("registered_ticket"), controller: "user", action: "myticket")
                   %li
-                    = link_to(t("inquiry"), "https://twitter.com/eXtick_")
+                    = link_to(t("inquiry"), "https://twitter.com/eXtick_", target: "_blank")
                   %li
                     = link_to(t("logout"), controller: "session", action: "destroy")
             - else
@@ -48,7 +48,7 @@
       %p
         %font(color="#696969")
           ご意見ご要望はこちらまで
-          = link_to("@eXtick_", "https://twitter.com/eXtick_")
+          = link_to("@eXtick_", "https://twitter.com/eXtick_", target: "_blank")
       %p
         %font(color="#696969")
           %i.fa.fa-copyright
