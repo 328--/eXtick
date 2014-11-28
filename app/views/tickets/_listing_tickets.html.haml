@@ -1,5 +1,4 @@
 %h1= title
-
 .row
   .bounceInLeft.animated
     %table.table.table-bordered
@@ -10,7 +9,6 @@
           %th= t('place')
           %th= t('price')
           %th= t('contact')
-
       %tbody
         - tickets.each do |ticket|
           %tr
@@ -35,13 +33,14 @@
                         = form_tag(controller: "tweet", action: "reply") do
                           = text_area_tag("message", "\@"+screen_name+t("reply_message")+ticket_url(ticket.id)+" \#eXtick",  maxlength: "140", size: "80x5", class: "form-control")
                           .modal-footer
-                            %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-                            %button.btn.btn-primary() Tweet
+                            %a.button(data-dismiss="modal" aria-hidden="true")
+                              Cancel
+                            = submit_tag("Tweet", class: "button blue")
                     - else
                       .modal-body= t('require_login_for_message')
                       .modal-footer
-                        %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-                        %a.btn.btn-primary(href="/auth/twitter" role="button")
-                          %font(color="#ffffff")
-                            %i.fa.fa-twitter= t('login_twitter')
+                        %a.button(data-dismiss="modal" aria-hidden="true")
+                          Cancel
+                        %a.blue.button(href="/auth/twitter")
+                          %i.icon-twitter= t('login_twitter')
 = paginate(tickets, param_name: "ticket_page", remote: true)

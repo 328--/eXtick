@@ -9,30 +9,32 @@
     %link(href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet")
 
   %body
-    .nav.blue
-      %ul
-        %li
-          %a.i.icon-home(href="/")
-            eXtick
-        - if session[:name]
-          %li= link_to(t("register_new_ticket"), controller: "tickets", action: "new")
-          %li= link_to(t("registered_ticket"), controller: "user", action: "myticket")
-          %li= link_to(t("watch_tag"), controller: "user", action: "watch_tag")
+    .bounceInRight.animated
+      .nav.blue
+        %ul
           %li
-            %a.i.icon-twitter(href="https://twitter.com/eXtick_")
-              = t("inquiry")
-          %li= link_to(t("logout"), controller: "session", action: "destroy")
-        - else
-          %li= link_to(t("login"), "/auth/twitter")
+            %a.i.icon-home(href="/")
+              eXtick
+          - if session[:name]
+            %li= link_to(t("register_new_ticket"), controller: "tickets", action: "new")
+            %li= link_to(t("registered_ticket"), controller: "user", action: "myticket")
+            %li= link_to(t("watch_tag"), controller: "user", action: "watch_tag")
+            %li
+              %a.i.icon-twitter(href="https://twitter.com/eXtick_")
+                = t("inquiry")
+            %li= link_to(t("logout"), controller: "session", action: "destroy")
+          - else
+            %li= link_to(t("login"), "/auth/twitter")
           
   = yield
   
-  %footer.nav.blue
-    .container-fluid(role="contentinfo" align="center")
-      %p
-        ご意見ご要望はこちらまで
-        %a.i.icon-twitter(href="https://twitter.com/eXtick_")
-          @eXtick_
-      %p
-        %i.fa.fa-copyright
-          2014 irohash
+  .bounceInRight.animated
+    %footer.nav.blue
+      .container-fluid(role="contentinfo" align="center")
+        %p
+          ご意見ご要望はこちらまで
+          %a.i.icon-twitter(href="https://twitter.com/eXtick_")
+            @eXtick_
+        %p
+          %i.fa.fa-copyright
+            2014 irohash
