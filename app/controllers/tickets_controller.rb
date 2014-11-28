@@ -70,17 +70,18 @@ class TicketsController < ApplicationController
   end
   
   def search
-    case params[:target]
-    when "ticket" then
-      tickets = Ticket.search_by_keyword(params[:keyword])
+    if params[:search_ticket]
+      @tickets = Ticket.search_by_keyword(params[:keyword])
       
       unless params[:tag].blank?
-        tickets = tickets.search_by_tag(params[:tag], params[:method])
+        @tickets = @tickets.search_by_tag(params[:tag], params[:method])
       end
       @title =  params[:tag].blank? && params[:keyword].blank? ? I18n.t("new_tickets") : I18n.t("search_result")
-      @tickets = tickets.page(params[:ticket_page])
-    when "ticket_bot" then
-      @tickets = TicketBot.order("created_at DESC").page(params[:ticket_bot_page])
+      @tickets = @tickets.page(params[:ticket_page])
+    end
+    if params[:search_ticket_bot]
+      @bot_tickets = TicketBot.search_by_keyword(params[:keyword]).page(params[:ticket_bot_page])
+      @bot_title =  params[:tag].blank? && params[:keyword].blank? ? I18n.t("ticket_bot_index") : I18n.t("ticket_bot_result")
     end
   end
 
