@@ -6,7 +6,7 @@ module Clockwork
   handler do |job|
     case job
     when 'ticket_bot_tweet_delete'
-      day = Date::today-7
+      day = Date::today-14
       TicketBot.destroy_all(["created_at <= ? ",day])
     end
   end
