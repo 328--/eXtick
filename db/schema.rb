@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141115135417) do
+ActiveRecord::Schema.define(version: 20141130225916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,10 +55,12 @@ ActiveRecord::Schema.define(version: 20141115135417) do
     t.datetime "datetime"
     t.string   "place"
     t.integer  "price"
+    t.string   "twitter_token"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "note"
     t.integer  "user_id"
+    t.integer  "sell_or_exchange", limit: 2
   end
 
   create_table "user_tags", force: true do |t|
