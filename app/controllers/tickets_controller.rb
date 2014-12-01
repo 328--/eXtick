@@ -19,10 +19,6 @@ class TicketsController < ApplicationController
       @ticket = Ticket.new
     end
   end
-
-  def show
-    redirect_to(action: :index)
-  end
   
   # GET /tickets/1/edit
   def edit
@@ -40,7 +36,7 @@ class TicketsController < ApplicationController
 
       @ticket.save!
     end
-    redirect_to(@ticket, notice: t('create_success'))
+    redirect_to({action: :index}, notice: t('create_success'))
     rescue
     redirect_to(action: :new)
   end

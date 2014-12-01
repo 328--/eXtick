@@ -1,3 +1,8 @@
+-if notice
+  .alert.alert-success
+    %a(class="close"  data-dismiss="alert") x
+    = notice
+
 .container
   - if session[:name].nil?
     = render(partial: "oauth")
