@@ -20,10 +20,6 @@ class TicketsController < ApplicationController
     end
   end
 
-  def show
-    redirect_to(action: :index)
-  end
-  
   # GET /tickets/1/edit
   def edit
     @tags = @ticket.tags
