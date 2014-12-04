@@ -13,18 +13,32 @@
       .nav.blue
         %ul
           %li
-            %a.i.icon-home(href="/")
-              eXtick
-          - if session[:name]
-            %li= link_to(t("register_new_ticket"), controller: "tickets", action: "new")
-            %li= link_to(t("registered_ticket"), controller: "user", action: "myticket")
-            %li= link_to(t("watch_tag"), controller: "user", action: "watch_tag")
-            %li
-              %a.i.icon-twitter(href="https://twitter.com/eXtick_")
-                = t("inquiry")
-            %li= link_to(t("logout"), controller: "session", action: "destroy")
-          - else
-            %li= link_to(t("login"), "/auth/twitter")
+            .border-right
+              %button(onclick="location.href='/'")
+                .i.icon-home
+                  eXtick
+          .fixed.right
+            - if session[:name]
+              %li
+                .border-left
+                  = link_to(t("register_new_ticket"), controller: "tickets", action: "new")
+              %li
+                .border-left
+                  = link_to(t("registered_ticket"), controller: "user", action: "myticket")
+              %li
+                .border-left
+                  = link_to(t("watch_tag"), controller: "user", action: "watch_tag")
+              %li
+                .border-left
+                  %a.i.icon-twitter(href="https://twitter.com/eXtick_")
+                    = t("inquiry")
+              %li
+                .border-left
+                  = link_to(t("logout"), controller: "session", action: "destroy")
+            - else
+              %li
+                .border-left
+                  = link_to(t("login"), "/auth/twitter")
           
   = yield
   
