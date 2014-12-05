@@ -14,7 +14,6 @@ class TicketsControllerTest < ActionController::TestCase
       post(:create, ticket: @ticket_params, params: @params)
     end
 
-    assert_redirected_to ticket_path(assigns(:ticket))
   end
 
   test "should reject ticket which does not have a event name" do
