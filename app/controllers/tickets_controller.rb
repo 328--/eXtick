@@ -36,7 +36,7 @@ class TicketsController < ApplicationController
 
       @ticket.save!
     end
-    redirect_to(@ticket, notice: t('create_success'))
+    redirect_to({action: :index}, notice: t('create_success'))
     rescue
     redirect_to(action: :new)
   end
@@ -102,7 +102,7 @@ class TicketsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   private
   def ticket_params
-    params.require(:ticket).permit(:event_name, :datetime, :place, :price, :note, :user_id)
+    params.require(:ticket).permit(:event_name, :datetime, :place, :price, :note, :user_id, :sell_or_exchange)
   end
 
 end

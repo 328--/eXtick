@@ -74,4 +74,7 @@ ja:
   404_message: "そのページは存在しません。URLをご確認ください。"
   500_message: "申し訳ありません、内部的なエラーで表示できません。"
   inquiry_message: "ご意見ご要望はこちらまで"
-
+  ticket_sell_or_exchange: "ステータス"
+  sell_or_exchange: "売る or 交換"
+  only_sell: "売ります"
+  only_exchange: "交換します"
