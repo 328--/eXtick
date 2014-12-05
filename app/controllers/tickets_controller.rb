@@ -19,7 +19,7 @@ class TicketsController < ApplicationController
       @ticket = Ticket.new
     end
   end
-  
+
   # GET /tickets/1/edit
   def edit
     @tags = @ticket.tags
