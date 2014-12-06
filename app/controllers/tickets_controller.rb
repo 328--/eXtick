@@ -54,7 +54,7 @@ class TicketsController < ApplicationController
 
       @ticket.update!(ticket_params)
     end
-    redirect_to(@ticket, notice: t('update_success'))
+    redirect_to({action: :index}, notice: t('update_success'))
     rescue
     redirect_to(action: :edit)
   end
