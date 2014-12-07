@@ -4,17 +4,45 @@
       = render(partial: "oauth")
 
 .row
-  .ten.twelfth.skip-one
+  .seven.twelfth.skip-one
     = render(partial: "search_form")
+  .two.twelfths.skip-one
+    = render(partial: "tag_cloud", locals: {title: t('tag_cloud')})
 
 .row
-  .eight.twelfths.skip-one
+  .ten.twelfths.skip-one
     #ajax_area
       = render(partial: "listing_tickets", locals: {tickets: @tickets, title: t('new_tickets')})
-  .two.twelfths
-    = render(partial: "tag_cloud", locals: {title: t('tag_cloud')})
 
 .row
   .ten.twelfths.skip-one
     #tweetbot_area
       = render(partial: "listing_tickets_bot", locals: {tickets: @tickets_bot, title: t('ticket_bot_index')})
+
+.row
+  .ten.twelfths.skip-one
+    .box.blue
+      .title
+        THE IDOLM@STER MILLION RADIO SPECIAL PARTY 02 ～Welcome!! 2015年〜
+      .date
+        日時:2014-11-13 02:40:00 +0900
+      .place
+        会場:hoge
+      .price
+        価格:
+    .box.blue
+      .title
+        hoge
+    .box.blue
+    .box.blue
+    .box.blue
+    .box.blue
+    .box.blue
+    .box.blue
+    .box.blue
+    .box.blue
+    .box.blue
+    .box.blue
+    .box.blue
+    .box.blue
+    .box.blue

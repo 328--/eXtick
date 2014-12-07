@@ -5,12 +5,12 @@
       .row
         .one.twelfth.skip-one
           = label_tag("event_name", t("event_name"), class: "control-label")
-        .four.twelfths
+        .six.twelfths
           = text_field_tag(:keyword, params[:keyword], class: "form-control")
       .row
         .one.twelfth.skip-one
           = label_tag("tag", t("tag"), class: "control-label")
-        .four.twelfths
+        .six.twelfths
           = text_field_tag(:tag, params[:tag], class: "form-control")
         .two.twelfth
           = label_tag("AND", "AND", class: "control-label")

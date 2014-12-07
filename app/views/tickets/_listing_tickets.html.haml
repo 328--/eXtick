@@ -11,6 +11,15 @@
           %th= t('contact')
       %tbody
         - tickets.each do |ticket|
+          %a.box.blue(href="/")
+            .title
+              = ticket.event_name
+            .date
+              = "日時: #{ticket.datetime}"
+            .place
+              = "会場: #{ticket.place}"
+            .price
+              = "価格: \\#{ticket.price}"
           %tr
             %td= link_to(ticket.event_name, controller: "tickets", action: "show", id: ticket)
             %td= ticket.datetime
