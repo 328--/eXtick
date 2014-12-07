@@ -1,5 +1,6 @@
 %h1= title
-- count=4
-- TicketTag.tag_cloud.each do |name,num|
-  = link_to("#{name}(#{num})", {controller: "tickets", action: "search", tag: name, method: "or", search_ticket: true}, remote: true, class: "tag#{count}")
-  - count-=1
+.bounceInDown.animated
+  - count=4
+  - TicketTag.tag_cloud.each do |name,num|
+    = link_to("#{name}(#{num})", {controller: "tickets", action: "search", tag: name, method: "or"}, remote: true, class: "tag#{count}")
+    - count-=1

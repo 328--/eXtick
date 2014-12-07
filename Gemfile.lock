@@ -43,6 +43,7 @@ GEM
       sass (~> 3.2)
     buftok (0.2.0)
     builder (3.2.2)
+    chunky_png (1.3.3)
     clockwork (1.1.0)
       activesupport
       tzinfo
@@ -54,6 +55,13 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    colorize (0.7.3)
+    compass (0.12.7)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.2.19)
+    compass-rails (1.1.6)
+      compass (>= 0.12.2)
     cookiejar (0.3.2)
     daemons (1.1.9)
     debug_inspector (0.0.2)
@@ -76,6 +84,14 @@ GEM
     execjs (2.2.2)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    fssm (0.2.10)
+    groundworkcss (2.3.5)
+      autoprefixer-rails
+      coffee-rails (>= 3.2.1)
+      colorize
+      compass-rails (~> 1)
+      jquery-rails
+      sass-rails (>= 3.2.3)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -219,7 +235,9 @@ DEPENDENCIES
   bootstrap-sass
   clockwork
   coffee-rails (~> 4.0.0)
+  compass-rails
   eventmachine
+  groundworkcss
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails

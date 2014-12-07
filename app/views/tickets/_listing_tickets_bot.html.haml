@@ -1,37 +1,39 @@
+%h1= title
 .row
-  .col-xs-12
-    %h1= title
-    %table.table.table-bordered.table-striped(align="center")
-      %tr
-        %th= t('ticket_bot_tweet')
-        %th= t('contact')
-
-      - tickets.each do |ticket|
+  .bounceInLeft.animated
+    %table.table.table-bordered
+      %thead
         %tr
-          %td= ticket.tweet
-          %td
-            %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal" role="button")
-              %font(color="#ffffff")
-                %i.fa.fa-twitter to @#{ticket.screen_name}
-          .modal.fade(id="Modal#{ticket.id}"tabindex="-1" data-toggle="modal" aria-hidden="true")
-            .modal-dialog.modal-lg
-              .modal-content
-                .modal-header
-                  %h4.modal-title= t('send_message')
-                - if session[:name]
-                  .modal-body
-                    = form_tag(controller: "tweet", action: "reply") do
-                      = text_area_tag("message", "\@"+ticket.screen_name+t("reply_message")+ticket.tweet_url+" \#eXtick",  maxlength: "140", size: "80x5", class: "form-control")
-                      .modal-footer
-                        %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-                        %button.btn.btn-primary() Tweet
-                - else
-                  .modal-body= t('require_login_for_message')
-                  .modal-footer
-                    %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-                    %a.btn.btn-primary(href="/auth/twitter" role="button")
-                      %font(color="#ffffff")
-                        %i.fa.fa-twitter= t('login_twitter')
-.row
-  .text-center
-    = paginate(tickets, param_name: "ticket_bot_page", remote: true, params: {controller: "tickets", action: "search", search_ticket_bot: true})
+          %th= t('ticket_bot_tweet')
+          %th= t('contact')
+      %tbody
+        - tickets.each do |ticket|
+          %tr
+            %td= link_to(ticket.tweet)
+            %td
+              %a.blue.button(href="#Modal#{ticket.id}" data-toggle="modal")
+                %i.icon-twitter
+                  = ticket.screen_name
+            .modal.fade(id="Modal#{ticket.id}"tabindex="-1" data-toggle="modal" aria-hidden="true")
+              .modal-dialog.modal-lg
+                .modal-content
+                  .modal-header
+                    %h4.modal-title= t('send_message')
+                  - if session[:name]
+                    .modal-body
+                      = form_tag(controller: "tweet", action: "reply") do
+                        = text_area_tag("message", "\@"+ticket.screen_name+t("reply_message")+ticket.tweet_url+" \#eXtick",  maxlength: "140", size: "80x5", class: "form-control")
+                        .modal-footer
+                          %a.button(data-dismiss="modal" aria-hidden="true")
+                            Cancel
+                          = submit_tag("Tweet", class: "button blue")
+                  - else
+                    .modal-body= t('require_login_for_message')
+                    .modal-footer
+                      %button(data-dismiss="modal" aria-hidden="true")
+                        Cancel
+                      %a.blue.button(href="/auth/twitter" role="button")
+                        %i.icon-twitter
+                          = t('login_twitter')
+
+= paginate(tickets, param_name: "ticket_bot_page", remote: true)

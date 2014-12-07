@@ -67,4 +67,5 @@ gem 'clockwork'
 
 gem 'rb-readline'
 
-
+gem 'compass-rails'
+gem 'groundworkcss'

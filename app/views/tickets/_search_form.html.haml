@@ -1,30 +1,23 @@
-.container
-  %h1= t('search_ticket')
-  .form-horizontal.well
-    = form_tag("/tickets/search", method: "get", remote: true) do
-      .form-group
-        .field
-          .col-xs-2
-            = label_tag("event_name", t("event_name"), class: "control-label")
-          .col-xs-6
-            = text_field_tag(:keyword, params[:keyword], class: "form-control")
-          .col-xs-3
-            = check_box_tag(:search_ticket_bot, true, false)
-            = label_tag("event_name", t("search_ticket_bot"), class: "control-label")
-      .form-group
-        .field
-          .col-xs-2
-            = label_tag("tag", t("tag"), class: "control-label")
-          .col-xs-6
-            = text_field_tag(:tag, params[:tag], class: "form-control")
-          .col-xs-4
-            = label_tag("AND", "AND", class: "control-label")
-            = radio_button_tag(:method, "and", checked: true)
-            = label_tag("OR", "OR", class: "control-label")
-            = radio_button_tag(:method, "or")
-      .form-group
-        .field
-          .col-xs-2
-            .actions
-              = submit_tag(t('search'), name: nil, class: "btn btn-default")
-      = hidden_field_tag("search_ticket", true)
+%h1= t('search_ticket')
+.bounceInUp.animated
+  = form_tag("/tickets/search", method: "get", remote: true) do
+    %fieldset
+      .row
+        .one.twelfth.skip-one
+          = label_tag("event_name", t("event_name"), class: "control-label")
+        .six.twelfths
+          = text_field_tag(:keyword, params[:keyword], class: "form-control")
+      .row
+        .one.twelfth.skip-one
+          = label_tag("tag", t("tag"), class: "control-label")
+        .six.twelfths
+          = text_field_tag(:tag, params[:tag], class: "form-control")
+        .two.twelfth
+          = label_tag("AND", "AND", class: "control-label")
+          = radio_button_tag(:method, "and", checked: true)
+          = label_tag("OR", "OR", class: "control-label")
+          = radio_button_tag(:method, "or")
+      .row
+        .one.twelfth.skip-one
+          .actions
+            = submit_tag(t('search'), name: nil, class: "button")

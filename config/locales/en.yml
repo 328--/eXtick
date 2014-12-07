@@ -24,8 +24,8 @@ en:
     pagination:
       first: "First"
       last: "Last"
-      previous: "<< Previous"
-      next: "Next >>"
+      previous: "Previous"
+      next: "Next"
       truncate: "..."
   date:
     order:

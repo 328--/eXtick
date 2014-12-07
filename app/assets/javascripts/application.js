@@ -15,3 +15,5 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
+//= require "groundworkcss/libs/modernizr-2.6.2.min"
+//= require "groundworkcss/all"

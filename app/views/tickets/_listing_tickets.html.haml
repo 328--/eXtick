@@ -1,78 +1,55 @@
+%h1= title
 .row
-  .col-xs-12
-    %h1= title
-    %table.table.table-bordered.table-striped(align="center")
-      %tr
-        %th= t('event_name')
-        %th= t('datetime')
-        %th= t('place')
-        %th= t('price')
-        %th= t('contact')
-
-      - tickets.each do |ticket|
+  .bounceInLeft.animated
+    %table.table.table-bordered
+      %thead
         %tr
-          %td= link_to(ticket.event_name, "#Show#{ticket.id}", "data-toggle" => "modal")
-          .modal.fade(id="Show#{ticket.id}" tabindex="-1" data-toggle="modal" aria-hidden="true")
-            .modal-dialog.modal-lg
-              .modal-content
-                .modal-header
-                  %h4.modal-title= ticket.event_name
-                  .modal-body
-                    %p
-                      %b= "#{t('event_name')}:"
-                      = ticket.event_name
-                    %p
-                      %b= "#{t('datetime')}:"
-                      = ticket.datetime
-                    %p
-                      %b= "#{t('place')}:"
-                      = ticket.place
-                    %p
-                      %b= "#{t('price')}:"
-                      = ticket.price
-                    %p
-                      %b= "#{t('category')}:"
-                      - ticket.categories.each do |category|
-                        = category[:name]
-                    %p
-                      %b= "#{t('tag')}:"
-                      - ticket.tags.each do |tag|
-                        = tag[:name]
-                    %p
-                      %b= "#{t('note')}:"
-                      = simple_format(ticket.note)
-                    .modal-footer
-                      = link_to t('edit'), edit_ticket_path(ticket), class: "btn btn-primary"
-                      %button.btn(data-dismiss="modal" aria-hidden="true") Close
-
-          %td= ticket.datetime
-          %td= ticket.place
-          %td= ticket.price
-          %td
-            - screen_name = ticket.user_id.present? ? ticket.user.screen_name : ""
-            - if ticket.user_id.present?
-              %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal" role="button")
-                %font(color="#ffffff")
-                  %i.fa.fa-twitter to @#{screen_name}
-          .modal.fade(id="Modal#{ticket.id}" tabindex="-1" data-toggle="modal" aria-hidden="true")
-            .modal-dialog.modal-lg
-              .modal-content
-                .modal-header
-                  %h4.modal-title= t('send_message')
-                  - if session[:name]
-                    .modal-body
-                      = form_tag(controller: "tweet", action: "reply") do
-                        = text_area_tag("message", "\@"+screen_name+t("reply_message")+ticket_url(ticket.id)+" \#eXtick",  maxlength: "140", size: "80x5", class: "form-control")
-                        .modal-footer
-                          %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-                          %button.btn.btn-primary() Tweet
-                  - else
-                    .modal-body= t('require_login_for_message')
-                    .modal-footer
-                      %button.btn(data-dismiss="modal" aria-hidden="true") Cancel
-                      %a.btn.btn-primary(href="/auth/twitter" role="button")
-                        %font(color="#ffffff")
-                          %i.fa.fa-twitter= t('login_twitter')
-.row
-  .text-center
-    = paginate(tickets, param_name: "ticket_page", remote: true, params: {controller: "tickets", action: "search",  search_ticket: true})
+          %th= t('event_name')
+          %th= t('datetime')
+          %th= t('place')
+          %th= t('price')
+          %th= t('contact')
+      %tbody
+        - tickets.each do |ticket|
+          %a.box.blue(href="/")
+            .title
+              = ticket.event_name
+            .date
+              = "日時: #{ticket.datetime}"
+            .place
+              = "会場: #{ticket.place}"
+            .price
+              = "価格: \\#{ticket.price}"
+          %tr
+            %td= link_to(ticket.event_name, controller: "tickets", action: "show", id: ticket)
+            %td= ticket.datetime
+            %td= ticket.place
+            %td= ticket.price
+            %td
+              - screen_name = ticket.user_id.present? ? ticket.user.screen_name : ""
+              - if ticket.user_id.present?
+                %a.blue.button(href="#Modal#{ticket.id}" data-toggle="modal")
+                  %i.icon-twitter
+                    = screen_name
+            .modal.fade(id="Modal#{ticket.id}" tabindex="-1" data-toggle="modal" aria-hidden="true")
+              .modal-dialog.modal-lg
+                .modal-content
+                  .modal-header
+                    %h4.modal-title= t('send_message')
+                    - if session[:name]
+                      .modal-body
+                        = form_tag(controller: "tweet", action: "reply") do
+                          = text_area_tag("message", "\@"+screen_name+t("reply_message")+ticket_url(ticket.id)+" \#eXtick",  maxlength: "140", size: "80x5", class: "form-control")
+                          .modal-footer
+                            %a.button(data-dismiss="modal" aria-hidden="true")
+                              Cancel
+                            = submit_tag("Tweet", class: "button blue")
+                    - else
+                      .modal-body= t('require_login_for_message')
+                      .modal-footer
+                        %a.button(data-dismiss="modal" aria-hidden="true")
+                          Cancel
+                        %a.blue.button(href="/auth/twitter")
+                          %i.icon-twitter
+                            = t('login_twitter')
+= paginate(tickets, param_name: "ticket_page", remote: true)
