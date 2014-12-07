@@ -1,2 +1,4 @@
 = render(partial: 'register_form', locals: {ticket: @ticket, tags: "", title: t('register_new_ticket'), viewer: false, user: @user})
-= link_to(t('back'), tickets_path)
+.row
+  .text-center
+    = link_to(t('back'), tickets_path)

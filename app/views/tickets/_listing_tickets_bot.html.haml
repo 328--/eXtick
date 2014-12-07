@@ -8,7 +8,7 @@
 
       - tickets.each do |ticket|
         %tr
-          %td= link_to(ticket.tweet)
+          %td= ticket.tweet
           %td
             %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal" role="button")
               %font(color="#ffffff")
@@ -32,4 +32,6 @@
                     %a.btn.btn-primary(href="/auth/twitter" role="button")
                       %font(color="#ffffff")
                         %i.fa.fa-twitter= t('login_twitter')
-= paginate(tickets, param_name: "ticket_bot_page", remote: true, params: {controller: "tickets", action: "search", search_ticket_bot: true})
+.row
+  .text-center
+    = paginate(tickets, param_name: "ticket_bot_page", remote: true, params: {controller: "tickets", action: "search", search_ticket_bot: true})

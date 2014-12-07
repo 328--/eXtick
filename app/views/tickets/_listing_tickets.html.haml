@@ -11,7 +11,40 @@
 
       - tickets.each do |ticket|
         %tr
-          %td= link_to(ticket.event_name, controller: "tickets", action: "show", id: ticket)
+          %td= link_to(ticket.event_name, "#Show#{ticket.id}", "data-toggle" => "modal")
+          .modal.fade(id="Show#{ticket.id}" tabindex="-1" data-toggle="modal" aria-hidden="true")
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  %h4.modal-title= ticket.event_name
+                  .modal-body
+                    %p
+                      %b= "#{t('event_name')}:"
+                      = ticket.event_name
+                    %p
+                      %b= "#{t('datetime')}:"
+                      = ticket.datetime
+                    %p
+                      %b= "#{t('place')}:"
+                      = ticket.place
+                    %p
+                      %b= "#{t('price')}:"
+                      = ticket.price
+                    %p
+                      %b= "#{t('category')}:"
+                      - ticket.categories.each do |category|
+                        = category[:name]
+                    %p
+                      %b= "#{t('tag')}:"
+                      - ticket.tags.each do |tag|
+                        = tag[:name]
+                    %p
+                      %b= "#{t('note')}:"
+                      = simple_format(ticket.note)
+                    .modal-footer
+                      = link_to t('edit'), edit_ticket_path(ticket), class: "btn btn-primary"
+                      %button.btn(data-dismiss="modal" aria-hidden="true") Close
+
           %td= ticket.datetime
           %td= ticket.place
           %td= ticket.price
@@ -21,7 +54,7 @@
               %a.btn.btn-primary.btn-xs(href="#Modal#{ticket.id}" data-toggle="modal" role="button")
                 %font(color="#ffffff")
                   %i.fa.fa-twitter to @#{screen_name}
-          .modal.fade(id="Modal#{ticket.id}"tabindex="-1" data-toggle="modal" aria-hidden="true")
+          .modal.fade(id="Modal#{ticket.id}" tabindex="-1" data-toggle="modal" aria-hidden="true")
             .modal-dialog.modal-lg
               .modal-content
                 .modal-header
@@ -40,4 +73,6 @@
                       %a.btn.btn-primary(href="/auth/twitter" role="button")
                         %font(color="#ffffff")
                           %i.fa.fa-twitter= t('login_twitter')
-= paginate(tickets, param_name: "ticket_page", remote: true, params: {controller: "tickets", action: "search",  search_ticket: true})
+.row
+  .text-center
+    = paginate(tickets, param_name: "ticket_page", remote: true, params: {controller: "tickets", action: "search",  search_ticket: true})

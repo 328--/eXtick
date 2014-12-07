@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController 
-  before_action(:set_ticket, only: [:show, :edit, :update, :destroy])
+  before_action(:set_ticket, only: [:edit, :update, :destroy])
   before_action(:set_user_id, only: [:edit])
   before_action(:set_user, only: [:edit, :new])
 
@@ -8,10 +8,6 @@ class TicketsController < ApplicationController
   def index
     @tickets = Ticket.order("created_at DESC").page(params[:ticket_page])
     @tickets_bot = TicketBot.order("created_at DESC").page(params[:ticket_bot_page])
-  end
-
-  # GET /tickets/1
-  def show
   end
 
   # GET /tickets/new
@@ -23,7 +19,7 @@ class TicketsController < ApplicationController
       @ticket = Ticket.new
     end
   end
-  
+
   # GET /tickets/1/edit
   def edit
     @tags = @ticket.tags
@@ -40,7 +36,7 @@ class TicketsController < ApplicationController
 
       @ticket.save!
     end
-    redirect_to(@ticket, notice: t('success_message'))
+    redirect_to({action: :index}, notice: t('create_success'))
     rescue
     redirect_to(action: :new)
   end
@@ -58,7 +54,7 @@ class TicketsController < ApplicationController
 
       @ticket.update!(ticket_params)
     end
-    redirect_to(@ticket, notice: 'Ticket was successfully updated.')
+    redirect_to({action: :index}, notice: t('update_success'))
     rescue
     redirect_to(action: :edit)
   end
@@ -66,7 +62,7 @@ class TicketsController < ApplicationController
   # DELETE /tickets/1
   def destroy
     @ticket.destroy
-    redirect_to(tickets_url, notice: 'Ticket was successfully destroyed.')
+    redirect_to(tickets_url, notice: t('destroy_success'))
   end
   
   def search
@@ -106,7 +102,7 @@ class TicketsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   private
   def ticket_params
-    params.require(:ticket).permit(:event_name, :datetime, :place, :price, :note, :user_id)
+    params.require(:ticket).permit(:event_name, :datetime, :place, :price, :note, :user_id, :sell_or_exchange)
   end
 
 end
