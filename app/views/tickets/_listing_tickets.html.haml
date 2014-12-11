@@ -1,55 +1,19 @@
 %h1= title
 .row
   .bounceInLeft.animated
-    %table.table.table-bordered
-      %thead
-        %tr
-          %th= t('event_name')
-          %th= t('datetime')
-          %th= t('place')
-          %th= t('price')
-          %th= t('contact')
-      %tbody
-        - tickets.each do |ticket|
-          %a.box.blue(href="/")
-            .title
-              = ticket.event_name
-            .date
-              = "日時: #{ticket.datetime}"
-            .place
-              = "会場: #{ticket.place}"
-            .price
-              = "価格: \\#{ticket.price}"
-          %tr
-            %td= link_to(ticket.event_name, controller: "tickets", action: "show", id: ticket)
-            %td= ticket.datetime
-            %td= ticket.place
-            %td= ticket.price
-            %td
-              - screen_name = ticket.user_id.present? ? ticket.user.screen_name : ""
-              - if ticket.user_id.present?
-                %a.blue.button(href="#Modal#{ticket.id}" data-toggle="modal")
-                  %i.icon-twitter
-                    = screen_name
-            .modal.fade(id="Modal#{ticket.id}" tabindex="-1" data-toggle="modal" aria-hidden="true")
-              .modal-dialog.modal-lg
-                .modal-content
-                  .modal-header
-                    %h4.modal-title= t('send_message')
-                    - if session[:name]
-                      .modal-body
-                        = form_tag(controller: "tweet", action: "reply") do
-                          = text_area_tag("message", "\@"+screen_name+t("reply_message")+ticket_url(ticket.id)+" \#eXtick",  maxlength: "140", size: "80x5", class: "form-control")
-                          .modal-footer
-                            %a.button(data-dismiss="modal" aria-hidden="true")
-                              Cancel
-                            = submit_tag("Tweet", class: "button blue")
-                    - else
-                      .modal-body= t('require_login_for_message')
-                      .modal-footer
-                        %a.button(data-dismiss="modal" aria-hidden="true")
-                          Cancel
-                        %a.blue.button(href="/auth/twitter")
-                          %i.icon-twitter
-                            = t('login_twitter')
+    - tickets.each do |ticket|
+      - case ticket.sell_or_exchange
+      - when 1
+        %a.box.blue(href="#Show#{ticket.id}" data-toggle="modal")
+          = render(partial: "_listing_tickets", locals: {ticket: ticket})
+      - when 2
+        %a.box.turquoise(href="#Show#{ticket.id}" data-toggle="modal")
+          = render(partial: "_listing_tickets", locals: {ticket: ticket})
+      - when 3
+        %a.box.green(href="#Show#{ticket.id}" data-toggle="modal")
+          = render(partial: "_listing_tickets", locals: {ticket: ticket})
+      - else
+        %a.box.blue(href="#Show#{ticket.id}" data-toggle="modal")
+          = render(partial: "_listing_tickets", locals: {ticket: ticket})
+
 = paginate(tickets, param_name: "ticket_page", remote: true)
