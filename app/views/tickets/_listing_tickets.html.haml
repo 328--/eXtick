@@ -1,19 +1,16 @@
 %h1= title
+  
 .row
   .bounceInLeft.animated
     - tickets.each do |ticket|
       - case ticket.sell_or_exchange
       - when 1
-        %a.box.blue(href="#Show#{ticket.id}" data-toggle="modal")
-          = render(partial: "_listing_tickets", locals: {ticket: ticket})
+        = render(partial: "only_sell", locals: {ticket: ticket})
       - when 2
-        %a.box.turquoise(href="#Show#{ticket.id}" data-toggle="modal")
-          = render(partial: "_listing_tickets", locals: {ticket: ticket})
+        = render(partial: "only_exchange" ,locals: {ticket: ticket})
       - when 3
-        %a.box.green(href="#Show#{ticket.id}" data-toggle="modal")
-          = render(partial: "_listing_tickets", locals: {ticket: ticket})
+        = render(partial: "sell_or_exchange" ,locals: {ticket: ticket})
       - else
-        %a.box.blue(href="#Show#{ticket.id}" data-toggle="modal")
-          = render(partial: "_listing_tickets", locals: {ticket: ticket})
+        = render(partial: "only_sell", locals: {ticket: ticket})
 
 = paginate(tickets, param_name: "ticket_page", remote: true)
