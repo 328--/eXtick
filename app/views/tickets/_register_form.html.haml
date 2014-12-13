@@ -42,7 +42,7 @@
           .col-xs-offset-2.col-xs-2
             = label_tag("ticket_sell_or_exchange", t('ticket_sell_or_exchange'), class: "control-label")
           .col-xs-6
-            = select_tag("ticket[sell_or_exchange]" , options_for_select([[t('only_sell'), 1], [t('only_exchange'), 2], [t('sell_or_exchange'), 3]]))
+            = select_tag("ticket[sell_or_exchange]" , options_for_select([[t('sell'), 1], [t('buy'), 2], [t('exchange'), 3]]))
 
 
       .form-group

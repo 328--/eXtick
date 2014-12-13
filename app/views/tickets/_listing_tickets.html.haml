@@ -4,26 +4,26 @@
   .text-center
     .one.twelfth
       %p.blue-bg
-        売り
+        = t("sell")
     .one.twelfth
       %p.turquoise-bg
-        交換
+        = t("buy")
     .one.twelfth
       %p.green-bg
-        売り or 交換
+        = t("exchange")
     
 .row
   .bounceInLeft.animated
     - tickets.each do |ticket|
       - case ticket.sell_or_exchange
       - when 1
-        = render(partial: "only_sell", locals: {ticket: ticket})
+        = render(partial: "sell", locals: {ticket: ticket})
       - when 2
-        = render(partial: "only_exchange" ,locals: {ticket: ticket})
+        = render(partial: "buy" ,locals: {ticket: ticket})
       - when 3
-        = render(partial: "sell_or_exchange" ,locals: {ticket: ticket})
+        = render(partial: "exchange" ,locals: {ticket: ticket})
       - else
-        = render(partial: "only_sell", locals: {ticket: ticket})
+        = render(partial: "sell", locals: {ticket: ticket})
 
 .row
   .text-center
